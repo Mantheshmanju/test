@@ -1,0 +1,47 @@
+<!--
+<div class="navbar navbar-default navbar-static-top" ng-controller="NavbarController">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" ng-click="nav.isCollapsed = !nav.isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">always-hired</a>
+    </div>
+    <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in nav.menu" ui-sref-active="active">
+            <a ui-sref="{{item.state}}">{{item.title}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+-->
+<div class="ui secondary menu" style="margin-bottom: 30px; margin-top: 10px; padding-left: 5px; padding-right: 5px;" ng-if="$root.showNav">
+  <a class="item noHover" href="/">
+    <img src="../../assets/images/ah_logo.png" style="background-size: 50px; width: 50px; height: 50px; background-repeat: none;"
+  </a>
+    
+  <div class="right menu" ng-if="$root.isLoggedIn == false">
+    <div class="item">
+        <a class="ui item" href="/login">
+      Login
+        </a>
+    </div>
+    <a class="ui item" href="/register">
+      Sign Up
+    </a>
+  </div>
+    
+      <div class="right menu" ng-if="$root.isLoggedIn == true">
+    <div class="item">
+        <a class="ui item" href="/">
+      Logout
+        </a>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,68 @@
+<navbar></navbar>
+        <div class="ui middle aligned center aligned grid" style="min-height: 80vh;">
+            <div class="seven wide column">
+                <a href="/" style="font-family: 'Raleway', sans-serif;" class="ui header">
+                    ALWAYSHIRED
+                </a>
+
+                <h2  style="font-family: 'Raleway', sans-serif;" class="ui header">
+                    Jumpstart your career
+                </h2>
+
+                <div class="ui error message" style="display: none;">
+                  <div class="ui error message">
+                      <i class="close icon"></i>
+                      <div class="header">
+                        There was some errors with your submission
+                      </div>
+                      <ul class="list" ng-repeat="fe in formerror track by $index">
+                        <li>{{fe}}</li>
+                      </ul>
+                    </div>
+                </div>
+
+                <div class="ui positive message" style="display: none;">
+                  <i class="close icon"></i>
+                  <div class="header">
+                    Success
+                  </div>
+                  <p>Login successful, redirecting to dashboard.</p>
+                </div>
+
+                <form class="ui large form" ng-submit="login($element)">
+                  <div class="ui stacked segment">
+                    <div class="field">
+                      <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="email" placeholder="E-mail address" ng-model="loginusername">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password" ng-model="loginpassword">
+                      </div>
+                    </div>
+                      <button class="ui fluid large teal submit button" value="Login" ng-click="login()">Login</button>
+                  </div>
+                </form>
+
+                <div class="ui message" style="text-align: center">
+                  <span><a href="" ng-click="toggleHelpMessage()">Need Help?</a></span>
+               </div>
+               <div class="ui hidden message helpmessage">
+                  <i class="close icon" ng-click="toggleHelpMessage()"></i>
+                  <div class="header">
+                     What can we help you with?
+                  </div>
+                  <ul class="list" style="list-style-type: none !important;">
+                      <li><a href="" ng-click="requestResetPassword()"> Reset Password </a></li>
+                     <li><a href="/register" >  Sign Up </a></li>
+                     <li><a href="" > Forgot Username </a></li>
+                  </ul>
+               </div>
+            </div>
+        </div>
+
+
+<footer></footer>
