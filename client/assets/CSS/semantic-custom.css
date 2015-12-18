@@ -31,7 +31,22 @@
     color: rgba(255,255,255,.9);
 }
 
+ui.blue.button {
 
+}
+
+.ui.blue.button, .ui.blue.buttons .button {
+    background-color: #009c95 !important;
+    color: #fff;
+    text-shadow: none;
+    background-image: none;
+}
+
+.ui.blue.button:hover, .ui.blue.buttons .button:hover {
+    background-color: #00837d;
+    color: #FFF;
+    text-shadow: none;
+}
 
 .ui.red.button, .ui.red.buttons .button {
     box-shadow: 0 0 0 2px #FF7F50 inset !important;
