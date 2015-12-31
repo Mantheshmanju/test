@@ -16,29 +16,35 @@ angular.module('alwaysHiredApp')
     } else {
         switch(idx) {
             case 'basic-info':
-                    $scope.isBasicInfo = "active";
-                    $scope.isEducation = "link";
-                    $scope.isWorkExperience = "link";
-                    $scope.isConnections = "link";
-            break;
+                $scope.isBasicInfo = "active";
+                $scope.isEducation = "link";
+                $scope.isWorkExperience = "link";
+                $scope.isConnections = "link";
+                break;
             case 'education':
-                    $scope.isBasicInfo = "link";
-                    $scope.isEducation = "active";
-                    $scope.isWorkExperience = "link";
-                    $scope.isConnections = "link";
-            break;
+                $scope.isBasicInfo = "link";
+                $scope.isEducation = "active";
+                $scope.isWorkExperience = "link";
+                $scope.isConnections = "link";
+                break;
             case 'work-experience':
-                    $scope.isBasicInfo = "link";
-                    $scope.isEducation = "link";
-                    $scope.isWorkExperience = "active";
-                    $scope.isConnections = "link";
-            break;
+                $scope.isBasicInfo = "link";
+                $scope.isEducation = "link";
+                $scope.isWorkExperience = "active";
+                $scope.isConnections = "link";
+                break;
             case 'connections':
-                    $scope.isBasicInfo = "";
-                    $scope.isEducation = "";
-                    $scope.isWorkExperience = "";
-                    $scope.isConnections = "active";
-            break;
+                $scope.isBasicInfo = "";
+                $scope.isEducation = "";
+                $scope.isWorkExperience = "";
+                $scope.isConnections = "active";
+                break;
+            default:
+                $scope.isBasicInfo = "active";
+                $scope.isEducation = "link";
+                $scope.isWorkExperience = "link";
+                $scope.isConnections = "link";
+                break;
         }
     }
     
