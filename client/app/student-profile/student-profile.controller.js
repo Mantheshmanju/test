@@ -8,6 +8,39 @@ angular.module('alwaysHiredApp')
     $scope.isEducation = "disabled";
     $scope.isWorkExperience = "disabled";
     $scope.isConnections = "disabled";
+
+    var path = window.location.pathname;
+    var idx = path.split('student-profile/')[1];
+    if(idx === undefined) {
+        //default to basic info
+    } else {
+        switch(idx) {
+            case 'basic-info':
+                    $scope.isBasicInfo = "active";
+                    $scope.isEducation = "link";
+                    $scope.isWorkExperience = "link";
+                    $scope.isConnections = "link";
+            break;
+            case 'education':
+                    $scope.isBasicInfo = "link";
+                    $scope.isEducation = "active";
+                    $scope.isWorkExperience = "link";
+                    $scope.isConnections = "link";
+            break;
+            case 'work-experience':
+                    $scope.isBasicInfo = "link";
+                    $scope.isEducation = "link";
+                    $scope.isWorkExperience = "active";
+                    $scope.isConnections = "link";
+            break;
+            case 'connections':
+                    $scope.isBasicInfo = "";
+                    $scope.isEducation = "";
+                    $scope.isWorkExperience = "";
+                    $scope.isConnections = "active";
+            break;
+        }
+    }
     
     $scope.data = [
         {
@@ -38,6 +71,11 @@ angular.module('alwaysHiredApp')
             console.log(oldVal + "1");
             console.log(newVal + "1");
         }, true);
+    }
+
+    $scope.goTo = function (pth) {
+        //check to make sure pth isn't an active tab
+        window.location.href = "/student-profile/" + pth;
     }
     
     $scope.states = states;

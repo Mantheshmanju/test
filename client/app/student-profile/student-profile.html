@@ -3,25 +3,25 @@
     <div class="sixteen wide grid" style="min-height: 100px; padding-bottom: ">
         <div class="column">
             <div class="ui steps" style="width: 100%;">
-                <a class="{{isBasicInfo}} step">
+                <a class="{{isBasicInfo}} step" ng-click="goTo('basic-info')">
                     <div class="content">
                         <div class="title" id="basicInfoStep">Basic Info</div>
                         <div class="description"></div>
                     </div>
                 </a>
-                <a class="disabled step">
+                <a class="{{isEducation}} step" ng-click="goTo('education')">
                     <div class="content">
                         <div class="title" id="educationStep">Education</div>
                         <div class="description"></div>
                     </div>
                 </a>
-                <a class="disabled step">
+                <a class="{{isWorkExperience}} step" ng-click="goTo('work-experience')">
                     <div class="content">
                         <div class="title" id="workLocationStep">Work Experience</div>
                         <div class="description"></div>
                     </div>
                 </a>
-                <a class="disabled step">
+                <a class="{{isConnections}} step" ng-click="goTo('connections')">
                     <div class="content">
                         <div class="title">Connections</div>
                         <div class="description"></div>
@@ -34,6 +34,9 @@
         <basic-info-tab ></basic-info-tab>
     </div>
     
+    <div ng-if="isEducation == 'active'">
+        <basic-info-tab ></basic-info-tab>
+    </div>
 </div>
 
 <footer></footer>
