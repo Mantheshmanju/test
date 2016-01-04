@@ -3,15 +3,15 @@
       <div class="three fields">
         <div class="field">
           <label>First name</label>
-          <input type="text" placeholder="First Name" ng-model="data.basicInfoFirstname">
+          <input type="text" placeholder="First Name" ng-model="basicData.firstName">
         </div>
         <div class="field">
           <label>Last name</label>
-          <input type="text" placeholder="Last Name" ng-model="data.basicInfoLastname">
+          <input type="text" placeholder="Last Name" ng-model="basicData.lastName">
         </div>
         <div class="field">
             <label>Gender</label>
-            <select class="select" ng-model="data.basicInfoGender">
+            <select class="select" ng-model="basicData.Gender">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
@@ -21,19 +21,19 @@
       <div class="four fields">
         <div class="field">
           <label>Address 1</label>
-          <input type="text" placeholder="Address 1" ng-model="data.basicInfoAddress1">
+          <input type="text" placeholder="Address 1" ng-model="basicData.Address1">
         </div>
         <div class="field">
           <label>Address 2</label>
-          <input type="text" placeholder="Apt or suit number" ng-model="data.basicInfoAddress2">
+          <input type="text" placeholder="Apt or suit number" ng-model="basicData.Address2">
         </div>
         <div class="field">
           <label>City</label>
-          <input type="text" placeholder="City" ng-model="data.basicInfoCity">
+          <input type="text" placeholder="City" ng-model="basicData.City">
         </div>
         <div class="field">
           <label>State</label>
-          <select class="select" ng-model="data.basicInfoState">
+          <select class="select" ng-model="basicData.State" value="{{basicData.State}}">
             <option  ng-repeat="state in states" value="{{state.abbreviation}}">{{state.name}}</option>  
           </select>
         </div>         
@@ -42,7 +42,7 @@
       <div class="two fields">
           <div class="field">
               <label>Which industry are you interested in? </label>
-              <select class="select" ng-model="data.basicInfoInterestedIn">
+              <select class="select" ng-model="basicData.interestedIndustry" value="{{basicData.interestedIndustry}}">
                 <option value="sales-entry-level">Sales Entry Level</option>
                 <option value="sales-advanced">Sales Advanced</option>
                 <option value="sales-management">Sales Management</option>
@@ -54,9 +54,9 @@
           </div>
           <div class="field">
               <label>Would you move for the right career?</label>
-              <select class="select" ng-model="data.basicInfoRightCareer">
-                <option value="yes-willing">Yes</option>
-                <option value="no-willing">No</option>
+              <select class="select" ng-model="basicData.willingToMove" value="{{basicData.willingToMove}}">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
           </div>   
         </div>
@@ -64,7 +64,7 @@
       <div class="two fields">
           <div class="field">
               <label>What salary range are you looking for?</label>
-              <select class="select" ng-model="data.basicInfoSalaryRange">
+              <select class="select" ng-model="basicData.salaryRange">
                 <option value="below-forty">Below $40,000</option>
                 <option value="forty-seventy">$40,000 - $70,000</option>
                 <option value="seventy-hundred">$70,000 - $100,000</option>
@@ -73,23 +73,23 @@
           </div> 
           <div class="field">
               <label>What are your career goals?</label>
-              <input type="checkbox" class="checkbox" ng-model="data.basicInfoCareerGoal1"> 1 </input>
-              <input type="checkbox" class="checkbox" ng-model="data.basicInfoCareerGoal2"> 2 </input>
-              <input type="checkbox" class="checkbox" ng-model="data.basicInfoCareerGoal3"> 3 </input>
-              <input type="checkbox" class="checkbox" ng-model="data.basicInfoCareerGoal4"> 4 </input>
+              <input type="checkbox" class="checkbox" ng-model="basicData.basicInfoCareerGoal1"> 1 </input>
+              <input type="checkbox" class="checkbox" ng-model="basicData.basicInfoCareerGoal2"> 2 </input>
+              <input type="checkbox" class="checkbox" ng-model="basicData.basicInfoCareerGoal3"> 3 </input>
+              <input type="checkbox" class="checkbox" ng-model="basicData.basicInfoCareerGoal4"> 4 </input>
           </div> 
       </div>
 
       <div class="two fields">
           <div class="field">
               <label>What are you looking for in the next step of your career?</label>
-              <textarea id="QD-textarea"  ng-model="data.basicInfoNextStep"></textarea>
+              <textarea id="QD-textarea"  ng-model="basicData.nextCareerStep"></textarea>
           </div>
           <div class="field">
               <label>Why are you interested in AlwaysHired?</label>
-              <textarea id="QD-textarea"  ng-model="data.basicInfoWhyUs"></textarea>
+              <textarea id="QD-textarea"  ng-model="basicData.whyAlwaysHired"></textarea>
           </div>
       </div>
         
-      <button class="ui blue disabled button" type="submit" ng-click="test()" style="float: right;">Continue</button>
+      <button class="ui blue disabled button" type="submit" ng-click="submitBasicData()" style="float: right;">SUBMIT</button>
     </div>

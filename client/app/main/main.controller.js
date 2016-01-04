@@ -16,6 +16,7 @@ class MainController {
     
     $scope.logout = function() {
         delete $localStorage.userToken;
+        delete $localStorage.userId;
         $rootScope.isLoggedIn = false;
     }
 

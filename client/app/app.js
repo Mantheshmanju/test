@@ -22,6 +22,13 @@ app.run(function($rootScope, $localStorage) {
         //is logged in
         $rootScope.isLoggedIn = true;
     }
+    
+    $rootScope.logout = function() {
+        delete $localStorage.userToken;
+        delete $localStorage.userId;
+        $rootScope.isLoggedIn = false;
+        window.location.href = "/login";
+    }
 });
 
 app.config(function($urlRouterProvider, $locationProvider, BackandProvider) {

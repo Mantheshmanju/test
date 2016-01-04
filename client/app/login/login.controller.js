@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alwaysHiredApp')
-  .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage) {
+  .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage, $http) {
     $scope.message = 'Hello';
     $rootScope.showNav = true;
     
@@ -27,12 +27,46 @@ angular.module('alwaysHiredApp')
                 $rootScope.showNav = true;
                
                 $('.positive').fadeOut('slow');
-                //redirect user to dashboard
-                window.location.href = "/dashboard";
+                
+                
                 $localStorage.userToken = token;
-                setTimeout(function() {
-                   $('.dimmer').removeClass('active');
-                }, 200);
+                userToken = token;
+                
+               
+                //get user id
+                var rtn = (function() {
+                    var retrn = $http({
+                      method: 'GET',
+                      url: Backand.getApiUrl() + '/1/query/data/getUserIdByEmail',
+                      params: {
+                        parameters: {
+                          email: $scope.loginusername
+                        }
+                      }
+                    }).then(function successCallback(response) {
+                        userId = response.data[0].id;
+                        $rootScope.userId = userId;
+                        $localStorage.userId = userId;
+                        //redirect user to dashboard
+                        window.location.href = "/dashboard";
+                        setTimeout(function() {
+                           $('.dimmer').removeClass('active');
+                        }, 200);
+                    }, function errorCallback(response) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        $log.log(response);
+                        swal("Oops!", "Error occured: " + response, "error");
+                        
+                        setTimeout(function() {
+                           $('.dimmer').removeClass('active');
+                        }, 200);
+                    });
+                    
+                    return retrn;
+                })();
+               
+
                 
 
             }, 

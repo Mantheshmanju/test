@@ -1,0 +1,71 @@
+<div class="ui form" style="padding-top: 20px;" ng-model="ngModel">
+   <h4 class="ui dividing header">New Education</h4>
+   <div class="three fields">
+      <div class="field">
+         <label>Education Level</label>
+         <select class="select" ng-model="educationData.educationLevel" value="{{educationData.educationLevel}}">
+            <option  ng-repeat="level in levels" value="{{level}}">{{level}}</option>
+         </select>
+      </div>
+      <div class="field">
+         <label>School Name</label>
+         <input type="text" placeholder="School Name" ng-model="educationData.schoolName">
+      </div>
+      <div class="field">
+         <label>Location of School</label>
+         <input type="text" placeholder="What goes here exactly?" ng-model="educationData.locationOfSchool">
+      </div>
+
+   </div>
+   <div class="four fields">
+      <div class="field">
+         <label>Degree Major (If Applicable)</label>
+         <input type="text" placeholder="Major or Degree Title" ng-model="educationData.degreeMajor">
+      </div>
+      <div class="field">
+         <label>Degree Status</label>
+         <select class="select" ng-model="educationData.degreeStatus" value="{{educationData.degreeStatus}}">
+            <option value="Completed">Completed</option>
+            <option value="inProcess">In Process</option>
+            <option value="Incompleted">Incompleted</option>
+            <option value="NA">N/A</option>
+         </select>
+      </div>
+      <div class="field">
+         <label>Start Date</label>
+         <input type="text" placeholder="Start Date" ng-model="educationData.startDate">
+      </div>
+      <div class="field">
+         <label>End Date (If Applicable)</label>
+         <input type="text" placeholder="End Date" ng-model="educationData.endDate">
+      </div>
+   </div>
+   <div class="field" style="padding-bottom: 30px;">
+      <button class="ui blue button" type="submit" ng-click="addEducation()" style="float: right;">ADD</button>
+   </div>
+   <br/>
+   <div class="ui divider"></div>
+   <div class="field">
+      <div class="ui inverted segment">
+         <div class="ui inverted relaxed divided list">
+            <div class="item" ng-repeat="education in educations">
+               <div class="ui icon right floated buttons">
+                  <button class="ui button">
+                  <i class="edit icon"></i>
+                  </button>
+                  <button class="ui button">
+                  <i class="remove icon"></i>
+                  </button>
+               </div>
+               <div class="content">
+                  <div class="header">{{education.schoolName}} {{getFormattedYear(education.endDate)}} {{getCompletionStatus(education.degreeStatus)}}                       
+                  </div>
+                  {{education.degreeMajor}}
+                  <br>
+                  {{education.educationLevel}}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
