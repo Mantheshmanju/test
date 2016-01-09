@@ -9,13 +9,18 @@
               <a class="sidebar-toggle item railway" href="/login" ng-if="$root.isLoggedIn == false"> Log In
               </a>
                 
+            <a class="ui sidebar-toggle item railway" href="/dashboard"ng-if="$root.isLoggedIn == true">     
+                <i class="browser icon"></i>
+                Dashboard
+            </a>
+                
               <a class="sidebar-toggle item railway" href="" ng-click="logout()" ng-if="$root.isLoggedIn == true"> Log Out
               </a>
             </div>
           </div>
 
           <div class="ui information container">
-            <h1 class="ui center aligned header railway" style="color: #FF7F50;">ALWAYSHIRED</h1>
+            <h1 class="ui center aligned header railway" style="color: #FF7F50; word-wrap: break-word;">ALWAYSHIRED</h1>
             <p class="railway" style="color: white;">We train high potential poeple to secure and succed in the best technology sales roles, period.</p>
                 <button class="ui big red button railway" style="margin-right: auto; margin-left: auto; display: block;" ng-click="goToRegister()">
                   Sign Up

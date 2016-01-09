@@ -8,7 +8,7 @@ module.exports = function (grunt) {
   } catch(e) {
     localConfig = {};
   }
-
+    
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
     express: 'grunt-express-server',
@@ -365,7 +365,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'bower_components/**/*',
-            'assets/images/{,*/}*.{webp}',
+            'assets/images/**/*',
             'assets/fonts/**/*',
             'index.html'
           ]

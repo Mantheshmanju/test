@@ -42,10 +42,28 @@ ui.blue.button {
     background-image: none;
 }
 
-.ui.blue.button:hover, .ui.blue.buttons .button:hover {
+.ui.positive.button:hover, .ui.positive.buttons .button:hover {
     background-color: #00837d;
     color: #FFF;
     text-shadow: none;
+}
+
+.ui.blue.positive.button:hover, .ui.blue.buttons .positive.button:hover {
+    background-color: #00837d !important;
+    color: #FFF !important;
+    text-shadow: none !important;
+}
+
+.ui.blue.positive.button:focus, .ui.blue.buttons .positive.button:focus {
+    background-color: #00837d !important;
+    color: #FFF !important;
+    text-shadow: none !important;
+}
+
+.ui.blue.positive.button:active, .ui.blue.buttons .positive.button:active {
+    background-color: #00837d !important;
+    color: #FFF !important;
+    text-shadow: none !important;
 }
 
 .ui.red.button, .ui.red.buttons .button {

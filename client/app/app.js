@@ -21,6 +21,7 @@ app.run(function($rootScope, $localStorage) {
     } else {
         //is logged in
         $rootScope.isLoggedIn = true;
+       // window.location.href = "/dashboard";
     }
     
     $rootScope.logout = function() {

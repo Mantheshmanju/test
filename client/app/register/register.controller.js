@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alwaysHiredApp')
-  .controller('RegisterCtrl', function ($scope, $rootScope, Backand, $localStorage) {
+  .controller('RegisterCtrl', function ($scope, $rootScope, Backand, $localStorage, $http) {
     $scope.message = 'Hello';
     $rootScope.showNav = true;
     
@@ -70,8 +70,6 @@ angular.module('alwaysHiredApp')
         Backand.signup($scope.firstname, $scope.lastname, $scope.useremail, sha256_digest($scope.userpassword), sha256_digest($scope.userconfirmpassword), {'userRole': "student", 'isDisabled': true })
             .then(
                 function successCallback(response) {
-                    console.log("Success");
-                    console.log(response);
                     //$('.dimmer').removeClass('active');
                     //log user in
                     Backand.signin($scope.useremail, sha256_digest($scope.userpassword), "ahplayground")
@@ -80,9 +78,32 @@ angular.module('alwaysHiredApp')
                             //redirect user to dashboard
                             $rootScope.isLoggedIn = true;
                             $scope.isLoggedIn = true;
-                            window.location.href = "#/";
                             $localStorage.userToken = token;
+                            //get user id
+                            var rtn = (function() {
+                                var retrn = $http({
+                                  method: 'GET',
+                                  url: Backand.getApiUrl() + '/1/query/data/getUserIdByEmail',
+                                  params: {
+                                    parameters: {
+                                      email: $scope.useremail
+                                    }
+                                  }
+                                }).then(function successCallback(response) {
+                                    userId = response.data[0].id;
+                                    $rootScope.userId = userId;
+                                    $localStorage.userId = userId;
+                                    //redirect user to dashboard
+                                    window.location.href = "#/dashboard";
+                                }, function errorCallback(response) {
+                                    // called asynchronously if an error occurs
+                                    // or server returns response with an error status.
+                                    $log.log(response);
+                                    swal("Oops!", "Error occured: " + response, "error");
+                                });
 
+                                return retrn;
+                            })();
                         
                     }, 
                     function (data, status, headers, config)  {
