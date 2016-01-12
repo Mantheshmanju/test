@@ -9,6 +9,10 @@ angular.module('alwaysHiredApp')
     $scope.isWorkExperience = "disabled";
     $scope.isConnections = "disabled";
     
+    $scope.exposureOther = false;
+    
+    $scope.connectionsData = [];
+    
     $scope.basicData = [
         {
             firstName: '',
@@ -26,7 +30,7 @@ angular.module('alwaysHiredApp')
             whyAlwaysHired: '',
         }
     ]
-    console.log($scope.basicData);
+    
     $scope.educationData = [ 
         {
             educationLevel: '',
@@ -38,6 +42,44 @@ angular.module('alwaysHiredApp')
             endDate: ''
         }
     ];
+    
+    $scope.connectionData =
+    {
+        resumeLink: '',
+        resumeKey:'No Resume Uploaded', 
+        linkedInUrl: '',
+        isVeteran: false,
+        militaryDivision: 'null',
+        veteranId: '',
+        userTags: '',
+        exposure: ''
+    };
+    
+    $scope.connectionTags = 
+    {
+        RecentGrad: false,
+        Veteran: false,
+        RetailExp: false,
+        NewToSales: false,
+        Motivated: false,
+        HardWorking: false,
+        HereForMoney: false,
+        HereForPrestige: false,
+        JumpstartCareer: false,
+        PeoplePlease: false,
+        Persuasive: false,
+        Intelligent: false,
+        Analytical: false,
+        Thoughtful: false,
+        Introvert: false,
+        Extrovert: false,
+        ComfortableStrangers: false
+        
+    };
+    
+    $scope.isVeteran = {
+        name: 'No'
+    };
     
 //    $scope.educations = [ 
 //        {
@@ -106,10 +148,60 @@ angular.module('alwaysHiredApp')
             return null;
     }
     
+    //uploads
+            /*  Access Key ID:
+            AKIAINHIO2TGRIJ3JBNQ
+            Secret Access Key:
+            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
+        */
+    $scope.creds = {
+      bucket: 'elasticbeanstalk-us-west-2-153502733246',
+      access_key: 'AKIAIW7RPKSUTMUQD6WA',
+      secret_key: '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'
+    }
+
+    $scope.upload = function(e) {
+      // Configure The S3 Object 
+      AWS.config.update({ accessKeyId: $scope.creds.access_key, secretAccessKey: $scope.creds.secret_key });
+      AWS.config.region = 'us-east-1';
+      var bucket = new AWS.S3({ params: { Bucket: $scope.creds.bucket } });
+        $scope.file = e.files[0];
+      if($scope.file) {
+        var params = { Key: $scope.file.name, ContentType: $scope.file.type, Body: $scope.file, ServerSideEncryption: 'AES256' };
+
+        bucket.upload(params, function(err, data) {
+          if(err) {
+            // There Was An Error With Your S3 Config
+            alert(err.message);
+            return false;
+          }
+          else {
+            // Success!
+            console.log(data);
+            var path = data.Location;
+            //send path to db
+            $scope.connectionData.resumeLink = path;
+            $scope.connectionData.resumeKey = data.key;
+            $scope.submitConnection();
+            alert('Upload Done');
+          }
+        })
+        .on('httpUploadProgress',function(progress) {
+              // Log Progress Information
+              console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+            });
+      }
+      else {
+        // No File Selected
+        alert('No File Selected');
+      }
+    }
+    
+    //end uploads
+    
     //sets
     
     $scope.initUpload = function(e) {
-        console.log(e.files[0]);
       var photoFile = e.files[0];
       var fileData = '';
       var fileName = photoFile.name;
@@ -132,8 +224,6 @@ angular.module('alwaysHiredApp')
             }
           }
         }).then(function successCallback(response) {
-                console.log("WIN");
-              console.log(response);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -213,6 +303,43 @@ angular.module('alwaysHiredApp')
         }
     }
     
+    $scope.submitConnection = function() {
+        var unformattedConnectionData = $scope.connectionData;
+        
+        var connectionData = {
+            userid: $localStorage.userId,
+            resumeLink: unformattedConnectionData.resumeLink,
+            resumeKey: unformattedConnectionData.resumeKey,
+            linkedInUrl: '',
+            isVeteran: false,
+            militaryDivision: '',
+            veteranId: '',
+            userTags: '',
+            exposure: ''
+        }
+        
+        return $http ({
+          method: 'POST',
+          url: Backand.getApiUrl() + '/1/objects/studentConnections?returnObject=true',
+          params: {
+            parameters: {
+            }
+          },
+          data: connectionData
+        }).then(function successCallback(response) {
+            console.log(response);
+            //getConnectionData
+            $('.ui.modal').modal('hide');
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            console.log(response);
+            $('.ui.modal').modal('hide');
+            swal("Oops!", "Error occured: " + response, "error");
+            
+        });
+    }
+    
     $scope.submitEditEducation = function() {
         var educationData = $scope.currentEducation;   
         
@@ -267,8 +394,7 @@ angular.module('alwaysHiredApp')
 
     }
 
-    $scope.removeEducation = function(educationId) {    
-        console.log(educationId);
+    $scope.removeEducation = function(educationId) { 
         var rtn = (function() {
             var retrn = $http({
               method: 'GET',
@@ -335,6 +461,58 @@ angular.module('alwaysHiredApp')
         
         return;
         
+    }
+    
+    //end set
+
+    $scope.checkExposureStatus = function(item) {
+        if(item == 'Other') {
+            //show other input field
+            $scope.exposureOther = true;
+        } else {
+           $scope.exposureOther = false; 
+        }
+        
+    }
+    
+    $scope.checkVetStatus = function () {
+        if($scope.isVeteran.name == 'No') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function getConnectionInfo() {
+        var rtn = (function() {
+            return $http ({
+              method: 'GET',
+              url: Backand.getApiUrl() + '/1/query/data/getConnectionData',
+              params: {
+                parameters: {
+                  userid: $localStorage.userId
+                }
+              }
+            }).then(function successCallback(response) {
+                var data = response.data[0];
+                
+                if(data === undefined) {
+                    //no data yet
+                } else {
+                    //look for resume url
+                    $scope.connectionData = data;
+                    if(data.resumeLink == null) {
+                        //dats exists but no resume
+                    } else {
+                        
+                    }
+                }
+
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        })();
     }
     
     function getEducationInfo() {
@@ -433,10 +611,11 @@ angular.module('alwaysHiredApp')
                 //get basic info data and populate angular data
                 break;
             case 'connections':
-                $scope.isBasicInfo = "";
-                $scope.isEducation = "";
-                $scope.isWorkExperience = "";
+                $scope.isBasicInfo = "link";
+                $scope.isEducation = "link";
+                $scope.isWorkExperience = "link";
                 $scope.isConnections = "active";
+                getConnectionInfo();
                 //get basic info data and populate angular data
                 break;
             default:
@@ -486,7 +665,7 @@ angular.module('alwaysHiredApp')
 })
 .directive('educationTab', function() {
     return {
-        templateUrl: "../../assets/directives/connections-tab.html",
+        templateUrl: "../../assets/directives/education-tab.html",
         restrict: 'EA',
         scope: true,
         link: function(scope,elem,attribute){
@@ -498,5 +677,38 @@ angular.module('alwaysHiredApp')
         }
     };
 })
+.directive('connectionsTab', function() {
+    return {
+        templateUrl: "../../assets/directives/connections-tab.html",
+        restrict: 'EA',
+        scope: true,
+        link: function(scope,elem,attribute){
+            for (var i in scope.educationData[0]) {
+                scope.$watch('connectionsData.' + i, function(newVal, oldVal){
+                    //this gets hit second
+                }, true);
+            }
+        }
+    };
+})
+.directive('file', function() {
+  return {
+    restrict: 'AE',
+    scope: {
+      file: '@'
+    },
+    link: function(scope, el, attrs){
+      el.bind('change', function(event){
+          
+        var files = event.target.files;
+        var file = files[0];
+        scope.file = file;
+        scope.$parent.file = file;
+        scope.$apply();
+          console.log(scope.file);
+      });
+    }
+  };
+});
 
 

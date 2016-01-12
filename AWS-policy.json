@@ -1,0 +1,15 @@
+{
+  "Id": "Policy1452361447038",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1452361444846",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::always-hired-qa/AKIAINHIO2TGRIJ3JBNQ",
+      "Principal": "*"
+    }
+  ]
+}
