@@ -481,6 +481,7 @@ angular.module('alwaysHiredApp')
         } else {
             return false;
         }
+        //
     }
     
     function getConnectionInfo() {
