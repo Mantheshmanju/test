@@ -21,7 +21,6 @@
         <div class="field">
             <label>What branch of the military?</label>
             <select class="select" id="militaryBranch" ng-model="connectionData.militaryDivision" ng-disabled="checkVetStatus()">
-                <option value="null"></option>
                 <option value="Army">Army</option>
                 <option value="Navy">Navy</option>
                 <option value="AirForce">Air Force</option>
@@ -57,7 +56,7 @@
                 <option value="Other">Other</option>
             </select>
             
-            <input type="text" style="margin-top: 15px;" ng-show="exposureOther" placeholder="How did you hear about us?" ng-model="exposureReason" />
+            <input type="text" style="margin-top: 15px;" ng-show="exposureOther" placeholder="How did you hear about us?" ng-model="connectionData.exposureReason" />
         </div>
         
 
@@ -163,5 +162,5 @@
     
 
 <!--<a class="btn btn-primary btn-block btn-lg" ng-click="upload()">Upload</a>-->
-          <button class="ui blue button" type="submit" style="float: right;">UPDATE</button>
+          <button class="ui blue button" type="submit" ng-click="submitConnections()" style="float: right;">UPDATE</button>
 </div>

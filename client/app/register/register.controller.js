@@ -67,6 +67,8 @@ angular.module('alwaysHiredApp')
        
         
         //send to db
+        
+        console.log($scope.useremail);
         Backand.signup($scope.firstname, $scope.lastname, $scope.useremail, sha256_digest($scope.userpassword), sha256_digest($scope.userconfirmpassword), {'userRole': "student", 'isDisabled': true })
             .then(
                 function successCallback(response) {

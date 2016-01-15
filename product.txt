@@ -1,0 +1,118 @@
+QUICK INTRO:
+
+Jordan Max, 25 years old and I live in Chicago. I am a software developer for a start up here in Chicago.
+I work on a SaS platform providing staffing solutions to companies that offer fast paced,
+gig type jobs to thousands of employees. This includes hospitality, pilots, security, teachers..etc
+
+I am by trade a ASP .NET developer, I mostly work with the middle tier and front end layers,
+but have my own experience in working with the backend as well.
+
+
+
+
+
+
+
+
+
+
+PRODUCT SPECS:
+
+-The portal is completely responsive (with a few kinks to work out)
+I am utilizing a UI framework called 'Semantic UI' to do this.
+
+-Our front-end logic is being done with AngularJS. 
+
+- We are running a MyEAN stack for the backend as a whole. But we are splitting it up right now
+to two services. The first being the database server is utilizing Backand, which is a BaaS that
+is meant to be used with Angular. The second is where we store files and we could even migrate
+to using this as our DB as well in the future, is AWS S3.
+
+- For Version Control we use github.
+    -www.github.com/jordmax12/alwayshired (altough this is private so I would need to give you access)
+
+[MyEAN Stack, AngularJS, Semantic UI, Github]
+
+
+
+
+
+
+
+
+
+PRODUCT SO FAR: 
+
+-I have set up the sign up/login
+    - we using sha256 encryption for passwords
+
+-Landing page (this could very well end up being the dashboard, I just
+wanted something as a landing page for testing)
+
+-Dashboard
+    - Set up the UI for widgets on screen
+    - This screen will also display a message to the user if they 
+    are under a certain percent done with their student profile
+    - It will display the percent complete of the student profile
+
+-Student Profile
+    -Basic Info
+       - User is able to submit basic info data to our DB
+       - On page load we fetch the users basic info
+    -Education
+       - User is able to submit an array of education data to our DB
+       - We can set a max of 10, if we want for this.
+       - If the user is still in school, we show a 'In Progress' flag
+       - If the user completed the education, we show a  formatted year flag
+         (given the user provided the end date)
+            - ex) Stanford University '94
+            - We don't need to do this, let me know if you don't like it
+       - User is able to edit/delete/add education to DB
+    -Connections
+       - Probably the most difficult of all sections, but also the most fun.
+         This tab is where we are currently utilizing AWS S3. 
+       - User is able to Upload a resume (for now you can upload any file, we will limit the user
+         as to which files they are able to upload, a max size..etc)
+       - Once user uploads resume, we update our DB the link to the resume
+       - We then display to the user the link directly under the upload option
+       - User is also able to update any other connection information
+       - We are limiting the user as to which fields they can edit based on parent fields
+            - For instance, if user checks 'No' to being a veteran, then we don't display any veteran data
+            - If user selects 'Other' we allow them to tell us in their own words where they heard about us
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PIPELINE:
+
+-RIght now we are not using a server side language like PHP. This software
+is almost completely built on API's, but in the future I anticipate
+involving PHP for some server side logic. I did this as a way to get
+something up quickly, at which point we can add some server side logic.
+
+- There's little kinks here and there with the design and some logic. I will
+be fixing that up once we get a stable build.
+
+- Work Connections needs to be done, although this should pretty much replicate education history
+
+- I will be setting up a QA server on some free hosting platform like Heroku,
+  and also set up a prod server to deploy.
+
+- I will be writing the paywall logic, I'm hoping to integrate with PayPal, Google Wallet, and anything else you can think of.
+  If it has an API, we will integrate with it.
+
+
+
+
+

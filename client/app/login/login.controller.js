@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alwaysHiredApp')
-  .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage, $http) {
+  .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage, $http, $log) {
     $scope.message = 'Hello';
     $rootScope.showNav = true;
     

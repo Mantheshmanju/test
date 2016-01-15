@@ -1,7 +1,7 @@
 'use strict';
 /*TODO: Education tab will need to be more invovled, we will have the user add in educations (max of 3) */
 angular.module('alwaysHiredApp')
-  .controller('StudentProfileCtrl', function ($scope, $rootScope, $http, Backand, $localStorage) {
+  .controller('StudentProfileCtrl', function ($scope, $rootScope, $http, Backand, $localStorage, basicInfoService) {
     $rootScope.showNav = true;
     //defaults
     $scope.isBasicInfo = "active";
@@ -52,7 +52,8 @@ angular.module('alwaysHiredApp')
         militaryDivision: 'null',
         veteranId: '',
         userTags: '',
-        exposure: ''
+        exposure: '',
+        exposureReason: ''
     };
     
     $scope.connectionTags = 
@@ -103,6 +104,31 @@ angular.module('alwaysHiredApp')
 //    ];
     
     //gets
+    function checkIfBasicConnectionsExists() {
+        return (function() {
+            var retrn = $http({
+              method: 'GET',
+              url: Backand.getApiUrl() + '/1/query/data/doesBasicConnectionsExist',
+              params: {
+                parameters: {
+                  userid: $localStorage.userId
+                }
+              }
+            }).then(function successCallback(response) {
+                var value = response.data[0].result;
+                $scope.doesConnExist = (value == 1) ? true: false;
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log(response);
+                //for now just makr doesConnExist = null
+                $scope.doesConnExist = null;
+                swal("Oops!", "Error occured: " + response, "error");
+            });
+
+        })();
+    }
+    
     function checkIfBasicInfoExists() {
         return (function() {
             var retrn = $http({
@@ -182,7 +208,7 @@ angular.module('alwaysHiredApp')
             //send path to db
             $scope.connectionData.resumeLink = path;
             $scope.connectionData.resumeKey = data.key;
-            $scope.submitConnection();
+            $scope.submitConnectionsAfterUpload();
             alert('Upload Done');
           }
         })
@@ -236,6 +262,7 @@ angular.module('alwaysHiredApp')
     $scope.submitBasicData = function() {
         //check if we exist in db yet
         var doesExist = $scope.doesBiExist;
+        console.log(doesExist);
         //get data ready
         var basicInfoData =
         {
@@ -270,6 +297,8 @@ angular.module('alwaysHiredApp')
             }).then(function successCallback(response) {
                 console.log(response);
                 getBasicInfo();
+                
+
                 //TODO: convert this next statement to a green message
                 swal("Success!", "Basic Info Updated!", "success");
             }, function errorCallback(response) {
@@ -303,41 +332,130 @@ angular.module('alwaysHiredApp')
         }
     }
     
-    $scope.submitConnection = function() {
+    $scope.submitConnectionsAfterUpload = function() {
         var unformattedConnectionData = $scope.connectionData;
+        
+        console.log(unformattedConnectionData);
+        
+        var doesExist = $scope.doesConnExist;
         
         var connectionData = {
             userid: $localStorage.userId,
             resumeLink: unformattedConnectionData.resumeLink,
             resumeKey: unformattedConnectionData.resumeKey,
-            linkedInUrl: '',
-            isVeteran: false,
-            militaryDivision: '',
-            veteranId: '',
-            userTags: '',
-            exposure: ''
         }
         
-        return $http ({
-          method: 'POST',
-          url: Backand.getApiUrl() + '/1/objects/studentConnections?returnObject=true',
-          params: {
-            parameters: {
+        return (function() {
+            var id = $scope.connectionData.id;
+                if(id != null) {
+                return $http ({
+                  method: 'PUT',
+                  url: Backand.getApiUrl() + '/1/objects/studentConnections/' + id,
+                  params: {
+                    parameters: {
+                    }
+                  },
+                  data: connectionData
+                }).then(function successCallback(response) {
+                    console.log(response);
+                    getConnectionInfo();
+                    //TODO: convert this next statement to a green message
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    console.log(response);
+                    swal("Oops!", "Error occured: " + response, "error");
+                });
             }
-          },
-          data: connectionData
-        }).then(function successCallback(response) {
-            console.log(response);
-            //getConnectionData
-            $('.ui.modal').modal('hide');
-        }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log(response);
-            $('.ui.modal').modal('hide');
-            swal("Oops!", "Error occured: " + response, "error");
             
-        });
+
+        })();
+    }
+    
+    $scope.submitConnections = function() {
+        var unformattedConnectionData = $scope.connectionData;
+        console.log(unformattedConnectionData);
+        console.log($scope.isVeteran.name);
+        
+        var veteranId = null;
+        var militaryDivision = null;
+        
+        var isVet = $scope.isVeteran.name;
+        
+        if(isVet == 'Yes') {
+            veteranId = unformattedConnectionData.veteranId;
+            militaryDivision = unformattedConnectionData.militaryDivision;
+        }
+        
+        var doesExist = $scope.doesConnExist;
+        var exposureReason = null;
+        
+        if(unformattedConnectionData.exposure == 'Other') {
+            exposureReason = unformattedConnectionData.exposureReason;
+        } else {
+            exposureReason = null;
+        }
+        
+        var connectionData = {
+            userid: $localStorage.userId,
+            resumeLink: unformattedConnectionData.resumeLink,
+            resumeKey: unformattedConnectionData.resumeKey,
+            linkedInUrl: unformattedConnectionData.linkedInUrl,
+            isVeteran: isVet,
+            militaryDivision: militaryDivision,
+            veteranId: veteranId,
+            userTags: null,
+            exposure: unformattedConnectionData.exposure,
+            exposureReason: (unformattedConnectionData.exposure == 'Other' ? unformattedConnectionData.exposureReason : null)
+        }
+        
+        if(doesExist) {
+            
+            var id = $scope.connectionData.id;
+            //update   
+            return $http ({
+              method: 'PUT',
+              url: Backand.getApiUrl() + '/1/objects/studentConnections/' + id,
+              params: {
+                parameters: {
+                }
+              },
+              data: connectionData
+            }).then(function successCallback(response) {
+                console.log(response);
+                getConnectionInfo();
+                //TODO: convert this next statement to a green message
+                swal("Success!", "Connection Info Updated!", "success");
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log(response);
+                swal("Oops!", "Error occured: " + response, "error");
+            });
+            
+            
+        } else {
+            return $http ({
+              method: 'POST',
+              url: Backand.getApiUrl() + '/1/objects/studentConnections?returnObject=true',
+              params: {
+                parameters: {
+                }
+              },
+              data: connectionData
+            }).then(function successCallback(response) {
+                console.log(response);
+                //getConnectionData
+                $('.ui.modal').modal('hide');
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log(response);
+                $('.ui.modal').modal('hide');
+                swal("Oops!", "Error occured: " + response, "error");
+
+            });
+        }
     }
     
     $scope.submitEditEducation = function() {
@@ -466,6 +584,7 @@ angular.module('alwaysHiredApp')
     //end set
 
     $scope.checkExposureStatus = function(item) {
+        console.log(item);
         if(item == 'Other') {
             //show other input field
             $scope.exposureOther = true;
@@ -496,12 +615,14 @@ angular.module('alwaysHiredApp')
               }
             }).then(function successCallback(response) {
                 var data = response.data[0];
-                
                 if(data === undefined) {
                     //no data yet
                 } else {
                     //look for resume url
                     $scope.connectionData = data;
+                    console.log(data);
+                    $scope.checkExposureStatus($scope.connectionData.exposure);
+                    $scope.isVeteran.name = $scope.connectionData.isVeteran;
                     if(data.resumeLink == null) {
                         //dats exists but no resume
                     } else {
@@ -543,34 +664,9 @@ angular.module('alwaysHiredApp')
     }
     
     function getBasicInfo() {
-        var rtn = (function() {
-            var retrn = $http({
-              method: 'GET',
-              url: Backand.getApiUrl() + '/1/query/data/getBasicInfoData',
-              params: {
-                parameters: {
-                  userid: $localStorage.userId
-                }
-              }
-            }).then(function successCallback(response) {
-                var data = response.data[0];
-                console.log($localStorage.userId);
-                if(data !== undefined) {
-                    $scope.basicData = data;
-                }
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                swal("Oops!", "Error occured: " + response, "error");
-
-                setTimeout(function() {
-                   $('.dimmer').removeClass('active');
-                }, 200);
-            });
-
-            return retrn;
-        })();
+        basicInfoService.getBasicInfo().then(function() {
+            $scope.basicData = basicInfoService.data();
+        });
     }
 
     var path = window.location.pathname;
@@ -583,7 +679,6 @@ angular.module('alwaysHiredApp')
         $scope.isConnections = "link";
         //get basic info data
         checkIfBasicInfoExists();
-        console.log($scope.doesBiExist);
         getBasicInfo();
         
     } else {
@@ -594,7 +689,7 @@ angular.module('alwaysHiredApp')
                 $scope.isWorkExperience = "link";
                 $scope.isConnections = "link";
                 checkIfBasicInfoExists();
-                getBasicInfo();
+                getBaiscInfo();
                 
                 break;
             case 'education':
@@ -616,6 +711,7 @@ angular.module('alwaysHiredApp')
                 $scope.isEducation = "link";
                 $scope.isWorkExperience = "link";
                 $scope.isConnections = "active";
+                checkIfBasicConnectionsExists();
                 getConnectionInfo();
                 //get basic info data and populate angular data
                 break;
@@ -645,6 +741,8 @@ angular.module('alwaysHiredApp')
         //check to make sure pth isn't an active tab
         window.location.href = "/student-profile/" + pth;
     }
+    
+    
     
     $scope.states = states;
     $scope.levels = levels;
