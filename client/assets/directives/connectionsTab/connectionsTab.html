@@ -1,0 +1,166 @@
+<div class="ui form" style="padding-top: 20px;" ng-model="ngModel">
+    <h4 class="ui dividing header">Connections</h4>
+<!--
+    <input onchange="angular.element(this).scope().initUpload(this)" type="file" accept="*/*" style="" ng-model="fileUpload">
+    
+-->
+    <div class="three fields">
+        <div class="field">
+            <label>Are you a veteran of the United States military?</label>
+            <div class="ui radio checkbox" style="padding-right: 10px;">
+              <input type="radio" name="Yes" ng-model="isVeteran.name" value="Yes" />
+              <label>Yes</label>
+            </div>
+            
+            <div class="ui radio checkbox">
+              <input type="radio" name="No" ng-model="isVeteran.name" value="No" />
+              <label>No</label>
+            </div>
+        </div>
+        
+        <div class="field">
+            <label>What branch of the military?</label>
+            <select class="select" id="militaryBranch" ng-model="connectionData.militaryDivision" ng-disabled="checkVetStatus()">
+                <option value="Army">Army</option>
+                <option value="Navy">Navy</option>
+                <option value="AirForce">Air Force</option>
+                <option value="NationalGuard">National Guard</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        
+        <div class="field">
+            <label>What's your veteran ID?</label>
+            <input type="text" id="veteranId" placeholder="Veteran ID" ng-model="connectionData.veteranId" ng-disabled="checkVetStatus()"/>
+        </div>
+    </div>
+
+    <div class="two fields">
+        <div class="field">
+            <label>LinkedIn URL</label>
+            <input type="text" placeholder="https://www.linkedin.com/in/..." ng-model="connectionData.linkedInUrl" />
+        </div>
+        
+        <div class="field">
+            <label>How Did You Hear About Us?</label>
+            <select class="select" ng-model="connectionData.exposure" ng-change="checkExposureStatus(connectionData.exposure)">
+                <option value="null"></option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="FacebookAd">Facebook Ad</option>
+                <option value="FacebookPost">Facebook Post</option>
+                <option value="Indeed">Indeed</option>
+                <option value="ZipRecruiter">Zip Recruiter</option>
+                <option value="Craigslist">Craigslist</option>
+                <option value="Eventbrite">Eventbrite</option>
+                <option value="Referral">Referral</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <input type="text" style="margin-top: 15px;" ng-show="exposureOther" placeholder="How did you hear about us?" ng-model="connectionData.exposureReason" />
+        </div>
+        
+
+    </div>
+    
+    <div class="two fields">
+        
+        <div class="field">
+            <label>Check all that apply</label>
+            <div class="three fields">
+                <div class="field">
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Recent College Grad</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Veteran</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Retail Sales Experience</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>New To Sales</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Motivated</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Persuasive</label>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Introvert</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Extrovert</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Comfortable Around Strangers</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Intelligent</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Analytical</label>
+                    </div>
+
+                </div>
+                
+                <div class="field">
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Hard Working</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Here For The Money</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Here For The Prestige</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Here To Jumpstart My Career</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>People Pleaser</label>
+                    </div>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="example">
+                      <label>Thoughtful</label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="field">
+          <label>Resume</label>
+          <input name="file" type="file" onchange="angular.element(this).scope().upload(this)" file />
+            <div class="field">
+                <a ng-if="connectionData.resumeLink" href="{{connectionData.resumeLink}}">{{connectionData.resumeKey}}</a>
+
+                <span ng-if="!connectionData.resumeLink" >{{connectionData.resumeKey}}</span>
+            </div>
+        </div>
+        
+
+    </div>
+    
+
+<!--<a class="btn btn-primary btn-block btn-lg" ng-click="upload()">Upload</a>-->
+          <button class="ui blue button" type="submit" ng-click="submitConnections()" style="float: right;">UPDATE</button>
+</div>

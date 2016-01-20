@@ -1,0 +1,132 @@
+<div class="ui form" style="padding-top: 20px;" ng-model="ngModel">
+   <h4 class="ui dividing header">New Work History</h4>
+   <div class="three fields">
+      <div class="field">
+         <label>Company Name</label>
+         <input type="text" placeholder="Company Name" ng-model="workHistoryData.companyName">
+      </div>
+      <div class="field">
+         <label>Start Date</label>
+         <input type="date" placeholder="Start Date" ng-model="workHistoryData.startDate">
+      </div>
+       <div class="field">
+         <label>End Date</label>
+         <input type="date" placeholder="End Date" ng-model="workHistoryData.endDate">
+      </div>
+   </div>
+    
+   <div class="three fields">
+      <div class="field">
+         <label>Job Title</label>
+         <input type="text" placeholder="Job Title" ng-model="workHistoryData.jobTitle">
+      </div>
+
+      <div class="field">
+         <label>Job Salary</label>
+         <input type="text" placeholder="Job Salary" ng-model="workHistoryData.jobSalary">
+      </div>
+      <div class="field">
+         <label>Job Salary Type</label>
+         <select ng-model="workHistoryData.jobSalaryType" value="{{workHistoryData.jobSalaryType}}">
+                <option value="Hour">Hour</option>
+                <option value="Day">Day</option>
+                <option value="Job">Job</option>
+                <option value="Week">Week</option>
+                <option value="Month">Month</option>
+                <option value="Year">Year</option>
+                <option value="Not Set" selected="selected">Not Set</option>
+          </select>
+      </div>
+
+   </div>
+    
+  <div class="field">
+     <label>Job Description</label>
+     <textarea placeholder="Job Description" ng-model="workHistoryData.jobDescription">     </textarea>
+  </div>
+   
+   <div class="field" style="padding-bottom: 30px;">
+      <button class="ui blue button" type="submit" ng-click="addWorkHistory()" style="float: right;">ADD</button>
+   </div>
+   <br/>
+   <div class="ui divider"></div>
+   <div class="field">
+      <div class="ui inverted segment"  ng-show="workHistories.length">
+         <div class="ui inverted relaxed divided list">
+            <div class="item" ng-repeat="workHistory in workHistories">
+               <div class="ui icon right floated buttons">
+                  <button class="ui button" ng-click="editWorkHistory(workHistory)">
+                  <i class="edit icon"></i>
+                  </button>
+                  <button class="ui button" ng-click="removeWorkHistory(workHistory.id)">
+                  <i class="remove icon"></i>
+                  </button>
+               </div>
+               <div class="content">
+                  <div class="header">{{workHistory.companyName}}                     
+                  </div>
+                  {{workHistory.jobTitle}}
+                  <br>
+                  {{workHistory.jobDescription}}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Edit Work History
+  </div>
+  <div class="ui form" style="padding: 10px; padding-top: 50px; padding-bottom: 50px;">
+      <div class="three fields">
+          <div class="field">
+             <label>Company Name</label>
+             <input type="text" placeholder="Company Name" ng-model="currentWorkHistory.companyName">
+          </div>
+          <div class="field">
+             <label>Start Date</label>
+             <input type="date" placeholder="Start Date" ng-model="currentWorkHistory.startDate">
+          </div>
+           <div class="field">
+             <label>End Date</label>
+             <input type="date" placeholder="End Date" ng-model="currentWorkHistory.endDate">
+          </div>
+       </div>
+      <div class="three fields">
+          <div class="field">
+             <label>Job Title</label>
+             <input type="text" placeholder="Job Title" ng-model="currentWorkHistory.jobTitle">
+          </div>
+
+          <div class="field">
+             <label>Job Salary</label>
+             <input type="text" placeholder="Job Salary" ng-model="currentWorkHistory.jobSalary">
+          </div>
+          <div class="field">
+             <label>Job Salary Type</label>
+             <select ng-model="currentWorkHistory.jobSalaryType" value="{{currentWorkHistory.jobSalaryType}}">
+                    <option value="Hour">Hour</option>
+                    <option value="Day">Day</option>
+                    <option value="Job">Job</option>
+                    <option value="Week">Week</option>
+                    <option value="Month">Month</option>
+                    <option value="Year">Year</option>
+                    <option value="Not Set" selected="selected">Not Set</option>
+              </select>
+          </div>
+       </div>
+  <div class="field">
+     <label>Job Description</label>
+     <textarea placeholder="Job Description" ng-model="currentWorkHistory.jobDescription">     </textarea>
+  </div>
+  </div>
+  <div class="actions">
+    <button class="ui positive blue right labeled icon button" ng-click="submitWorkHistory()">
+      SAVE
+      <i class="checkmark icon"></i>
+    </button>
+  </div>
+</div>

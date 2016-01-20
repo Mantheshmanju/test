@@ -1,7 +1,7 @@
 'use strict';
 /*TODO: Education tab will need to be more invovled, we will have the user add in educations (max of 3) */
 angular.module('alwaysHiredApp')
-  .controller('StudentProfileCtrl', function ($scope, $rootScope, $http, Backand, $localStorage, basicInfoService) {
+  .controller('StudentProfileCtrl', function ($scope, $rootScope, $http, Backand, $localStorage, basicInfoService, workHistoryService, connectionService, educationService,alwaysHiredService) {
     $rootScope.showNav = true;
     //defaults
     $scope.isBasicInfo = "active";
@@ -13,178 +13,31 @@ angular.module('alwaysHiredApp')
     
     $scope.connectionsData = [];
     
-    $scope.basicData = [
-        {
-            firstName: '',
-            lastName:  '',
-            Gender: '',
-            Address1: '',
-            Address2: '',
-            City: '',
-            State: '',
-            interestedIndustry: '',
-            willingToMove: '',
-            salaryRange: '',
-            careerGoals: '',
-            nextCareerStep: '',
-            whyAlwaysHired: '',
-        }
-    ]
+    $scope.basicData = basicDataTemplate;
     
-    $scope.educationData = [ 
-        {
-            educationLevel: '',
-            locationOfSchool: '',
-            degreeStatus: '',
-            degreeMajor: '',
-            schoolName: '',
-            startDate: '',
-            endDate: ''
-        }
-    ];
+    $scope.educationData = educationDataTemplate;
     
-    $scope.connectionData =
-    {
-        resumeLink: '',
-        resumeKey:'No Resume Uploaded', 
-        linkedInUrl: '',
-        isVeteran: false,
-        militaryDivision: 'null',
-        veteranId: '',
-        userTags: '',
-        exposure: '',
-        exposureReason: ''
-    };
+    $scope.workHistoryData = workHistoryDataTemplate;
     
-    $scope.connectionTags = 
-    {
-        RecentGrad: false,
-        Veteran: false,
-        RetailExp: false,
-        NewToSales: false,
-        Motivated: false,
-        HardWorking: false,
-        HereForMoney: false,
-        HereForPrestige: false,
-        JumpstartCareer: false,
-        PeoplePlease: false,
-        Persuasive: false,
-        Intelligent: false,
-        Analytical: false,
-        Thoughtful: false,
-        Introvert: false,
-        Extrovert: false,
-        ComfortableStrangers: false
-        
-    };
+    $scope.connectionData = connectionDataTemplate;
+    
+    $scope.connectionTags = connectionTagTemplate;
+    
     
     $scope.isVeteran = {
         name: 'No'
     };
     
-//    $scope.educations = [ 
-//        {
-//            educationLevel: 'Bachelors',
-//            locationOfSchool: 'test',
-//            degreeStatus: 'Completed',
-//            degreeMajor: 'Computer Science',
-//            schoolName: 'Harvard University',
-//            startDate: '2008',
-//            endDate: '2012'
-//        },
-//        {
-//            educationLevel: 'Masters',
-//            locationOfSchool: 'Conneticut',
-//            degreeStatus: 'Completed',
-//            degreeMajor: 'Algorithms',
-//            schoolName: 'Yale University',
-//            startDate: '2012',
-//            endDate: '2014'
-//        }
-//    ];
-    
-    //gets
-    function checkIfBasicConnectionsExists() {
-        return (function() {
-            var retrn = $http({
-              method: 'GET',
-              url: Backand.getApiUrl() + '/1/query/data/doesBasicConnectionsExist',
-              params: {
-                parameters: {
-                  userid: $localStorage.userId
-                }
-              }
-            }).then(function successCallback(response) {
-                var value = response.data[0].result;
-                $scope.doesConnExist = (value == 1) ? true: false;
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                //for now just makr doesConnExist = null
-                $scope.doesConnExist = null;
-                swal("Oops!", "Error occured: " + response, "error");
-            });
-
-        })();
-    }
-    
-    function checkIfBasicInfoExists() {
-        return (function() {
-            var retrn = $http({
-              method: 'GET',
-              url: Backand.getApiUrl() + '/1/query/data/doesBasicInfoExist',
-              params: {
-                parameters: {
-                  userid: $localStorage.userId
-                }
-              }
-            }).then(function successCallback(response) {
-                var value = response.data[0].result;
-                $scope.doesBiExist = (value == 1) ? true: false;
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                //for now just makr doesBiExist = null
-                $scope.doesBiExist = null;
-                swal("Oops!", "Error occured: " + response, "error");
-            });
-
-            return retrn;
-        })();
-    }
-    
     $scope.getFormattedYear = function(date) {
-        try {
-            if(date.length >= 4)
-                return '\'' + date.slice(-2);
-            else
-                return null;
-        } 
-        catch (ex) {
-            return null;   
-        }
+        return alwaysHiredService.getFormattedYear(date);
     }
     
     $scope.getCompletionStatus = function(status) {
-        if(status == "inProcess")
-            return '(In Progress)';
-        else
-            return null;
+        return alwaysHiredService.getCompletionStatus(status);
     }
     
-    //uploads
-            /*  Access Key ID:
-            AKIAINHIO2TGRIJ3JBNQ
-            Secret Access Key:
-            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
-        */
-    $scope.creds = {
-      bucket: 'elasticbeanstalk-us-west-2-153502733246',
-      access_key: 'AKIAIW7RPKSUTMUQD6WA',
-      secret_key: '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'
-    }
+    //this needs to go into a config file
+    $scope.creds = config.creds;
 
     $scope.upload = function(e) {
       // Configure The S3 Object 
@@ -262,7 +115,6 @@ angular.module('alwaysHiredApp')
     $scope.submitBasicData = function() {
         //check if we exist in db yet
         var doesExist = $scope.doesBiExist;
-        console.log(doesExist);
         //get data ready
         var basicInfoData =
         {
@@ -286,56 +138,26 @@ angular.module('alwaysHiredApp')
             //grab id from db
             var id = $scope.basicData.id;
             //update   
-            return $http ({
-              method: 'PUT',
-              url: Backand.getApiUrl() + '/1/objects/studentBasicInfo/' + id,
-              params: {
-                parameters: {
-                }
-              },
-              data: basicInfoData
-            }).then(function successCallback(response) {
-                console.log(response);
+            basicInfoService.updateBasicInfo(basicInfoData, id).then(function() {
+                var rtn = basicInfoService.data();
+                //get basic info
+                //if success
                 getBasicInfo();
-                
-
-                //TODO: convert this next statement to a green message
-                swal("Success!", "Basic Info Updated!", "success");
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                swal("Oops!", "Error occured: " + response, "error");
             });
         } else {
             //add   
-            return $http ({
-              method: 'POST',
-              url: Backand.getApiUrl() + '/1/objects/studentBasicInfo?returnObject=true',
-              params: {
-                parameters: {}
-              },
-              data: basicInfoData
-            }).then(function successCallback(response) {
-                console.log(response);
-                var data = response.data;
-                console.log(data);
+            basicInfoService.submitBasicInfo(basicInfoData)
+              .then(function() {
+                var rtn = basicInfoService.data();
+                //get basic info
+                //if success
                 getBasicInfo();
-                //TODO: convert this next statement to a green message
-                swal("Success!", "Basic Info Updated!", "success");
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                swal("Oops!", "Error occured: " + response, "error");
             });
         }
     }
     
     $scope.submitConnectionsAfterUpload = function() {
         var unformattedConnectionData = $scope.connectionData;
-        
-        console.log(unformattedConnectionData);
         
         var doesExist = $scope.doesConnExist;
         
@@ -347,24 +169,12 @@ angular.module('alwaysHiredApp')
         
         return (function() {
             var id = $scope.connectionData.id;
-                if(id != null) {
-                return $http ({
-                  method: 'PUT',
-                  url: Backand.getApiUrl() + '/1/objects/studentConnections/' + id,
-                  params: {
-                    parameters: {
-                    }
-                  },
-                  data: connectionData
-                }).then(function successCallback(response) {
-                    console.log(response);
+            if(id != null) {
+                connectionService.afterFileUpload(connectionData, id).then(function() {
+                    //check if successful
+                    var data = connectionService.data();
+                    //grab connection info
                     getConnectionInfo();
-                    //TODO: convert this next statement to a green message
-                }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    console.log(response);
-                    swal("Oops!", "Error occured: " + response, "error");
                 });
             }
             
@@ -373,9 +183,8 @@ angular.module('alwaysHiredApp')
     }
     
     $scope.submitConnections = function() {
+        //put into abstraction function
         var unformattedConnectionData = $scope.connectionData;
-        console.log(unformattedConnectionData);
-        console.log($scope.isVeteran.name);
         
         var veteranId = null;
         var militaryDivision = null;
@@ -395,7 +204,9 @@ angular.module('alwaysHiredApp')
         } else {
             exposureReason = null;
         }
+        //put into abstraction function
         
+        //get data ready
         var connectionData = {
             userid: $localStorage.userId,
             resumeLink: unformattedConnectionData.resumeLink,
@@ -410,76 +221,66 @@ angular.module('alwaysHiredApp')
         }
         
         if(doesExist) {
-            
             var id = $scope.connectionData.id;
             //update   
-            return $http ({
-              method: 'PUT',
-              url: Backand.getApiUrl() + '/1/objects/studentConnections/' + id,
-              params: {
-                parameters: {
-                }
-              },
-              data: connectionData
-            }).then(function successCallback(response) {
-                console.log(response);
+            connectionService.editConnection(connectionData, id).then(function() {
+                //check to see if failed
+                var data = connectionService.data();
+                //get connection data
                 getConnectionInfo();
-                //TODO: convert this next statement to a green message
-                swal("Success!", "Connection Info Updated!", "success");
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                swal("Oops!", "Error occured: " + response, "error");
             });
             
             
         } else {
-            return $http ({
-              method: 'POST',
-              url: Backand.getApiUrl() + '/1/objects/studentConnections?returnObject=true',
-              params: {
-                parameters: {
-                }
-              },
-              data: connectionData
-            }).then(function successCallback(response) {
-                console.log(response);
-                //getConnectionData
-                $('.ui.modal').modal('hide');
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                $('.ui.modal').modal('hide');
-                swal("Oops!", "Error occured: " + response, "error");
-
+            connectionService.addConnection(connectionData).then(function() {
+                //check to see if failed
+                var data = connectionService.data();
+                //get connection data
+                getConnectionInfo();
             });
         }
+    }
+    
+    $scope.addEducation = function(education) {
+        var educationData =
+        {
+            userId: $localStorage.userId,
+            educationLevel: $scope.educationData.educationLevel,
+            locationOfSchool: $scope.educationData.locationOfSchool,
+            degreeStatus: $scope.educationData.degreeStatus,
+            degreeMajor: $scope.educationData.degreeMajor,
+            schoolName: $scope.educationData.schoolName,
+            startDate: $scope.educationData.startDate,
+            endDate: $scope.educationData.endDate
+        };
+        
+        educationService.addEducation(educationData).then(function() {
+            var data = educationService.data();
+            
+            var currentEducation = $scope.educations;
+            if(currentEducation != undefined) {
+                currentEducation.push(data);
+            } else {
+                currentEducation = [];
+                currentEducation.push(data);
+            }
+            
+            $scope.educations = currentEducation;
+            $scope.educationData = [];
+            
+        });
+        
+        return;
     }
     
     $scope.submitEditEducation = function() {
         var educationData = $scope.currentEducation;   
         
-        return $http ({
-          method: 'PUT',
-          url: Backand.getApiUrl() + '/1/objects/studentEducation/' + educationData.id,
-          params: {
-            parameters: {
-            }
-          },
-          data: educationData
-        }).then(function successCallback(response) {
-            console.log(response);
+        educationService.submitEducation(educationData).then(function() {
+            var data = educationService.data();
+            //TODO: make sure service didn't fail
             getEducationInfo();
             $('.ui.modal').modal('hide');
-        }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log(response);
-            $('.ui.modal').modal('hide');
-            swal("Oops!", "Error occured: " + response, "error");
-            
         });
     }
     
@@ -497,99 +298,78 @@ angular.module('alwaysHiredApp')
             .modal('show')
         ;
         
-        var educationData =
-        {
-            userId: $localStorage.userId,
-            educationLevel: $scope.basicData.educationLevel,
-            locationOfSchool: $scope.educationData.locationOfSchool,
-            degreeStatus: $scope.educationData.degreeStatus,
-            degreeMajor: $scope.educationData.degreeMajor,
-            schoolName: $scope.educationData.schoolName,
-            startDate: $scope.educationData.startDate,
-            endDate: $scope.educationData.endDate
-        };
-        
 
     }
 
     $scope.removeEducation = function(educationId) { 
-        var rtn = (function() {
-            var retrn = $http({
-              method: 'GET',
-              url: Backand.getApiUrl() + '/1/query/data/deleteEducationById',
-              params: {
-                parameters: {
-                  educationId: educationId
-                }
-              }
-            }).then(function successCallback(response) {
-                console.log(response);
-                getEducationInfo();
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log(response);
-                swal("Oops!", "Error occured: " + response, "error");
-            });
-
-            return retrn;
-        })();
-    }
-
-    
-    $scope.addEducation = function(education) {
-        var educationData =
-        {
-            userId: $localStorage.userId,
-            educationLevel: $scope.educationData.educationLevel,
-            locationOfSchool: $scope.educationData.locationOfSchool,
-            degreeStatus: $scope.educationData.degreeStatus,
-            degreeMajor: $scope.educationData.degreeMajor,
-            schoolName: $scope.educationData.schoolName,
-            startDate: $scope.educationData.startDate,
-            endDate: $scope.educationData.endDate
-        };
-        
-        return $http ({
-          method: 'POST',
-          url: Backand.getApiUrl() + '/1/objects/studentEducation?returnObject=true',
-          params: {
-            parameters: {}
-          },
-          data: educationData
-        }).then(function successCallback(response) {
-            var data = response.data[0];
-            
-            var currentEducation = $scope.educations;
-            if(currentEducation != undefined) {
-                currentEducation.push(response.data);
-            } else {
-                currentEducation = [];
-                currentEducation.push(response.data);
-            }
-            
-            $scope.educations = currentEducation;
-            $scope.educationData = [];
-        }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log(response);
-            swal("Oops!", "Error occured: " + response, "error");
+        educationService.removeEducation(educationId).then(function() {
+            //TODO: check to make sure service didn't fail
+            var data = educationService.data();
+            getEducationInfo();
         });
         
-        return;
-        
+
     }
+    
+    $scope.addWorkHistory = function() {
+         var workHistoryData =
+        {
+            userId: $localStorage.userId,
+            companyName: $scope.workHistoryData.companyName,
+            jobTitle: $scope.workHistoryData.jobTitle,
+            jobDescription: $scope.workHistoryData.jobDescription,
+            jobSalary: $scope.workHistoryData.jobSalary,
+            jobSalaryType: $scope.workHistoryData.jobSalaryType,
+            startDate: $scope.workHistoryData.startDate,
+            endDate: $scope.workHistoryData.endDate
+        };
+        workHistoryService.addWorkHistory(workHistoryData).then(function() {
+            var rtn = workHistoryService.data();
+            $scope.workHistoryData = [];
+            getWorkHistory();
+        });
+    }
+    
+    $scope.editWorkHistory = function(workHistory) {
+        //workHistoryService.editWorkHistory(workHistory);
+        $scope.currentWorkHistory = workHistory;
+        $('.ui.modal')
+            .modal({
+                closeable: false,
+                onApprove : function() {
+                    workHistoryService.editWorkHistory($scope.currentWorkHistory);
+                    return false;
+                }
+            })
+            .modal('show')
+        ;
+    }
+    
+    $scope.submitWorkHistory = function() {
+        var workHistoryData = $scope.currentWorkHistory;
+        workHistoryService.editWorkHistory(workHistoryData).then(function() {
+            $('.ui.modal').modal('hide');
+            getWorkHistory();
+        });
+    }
+
+    $scope.removeWorkHistory = function(id) {
+        workHistoryService.removeWorkHistory(id).then(function() {
+            var rtn = workHistoryService.data();
+            console.log(rtn);
+            getWorkHistory();
+        });
+    }
+    
     
     //end set
 
     $scope.checkExposureStatus = function(item) {
-        console.log(item);
         if(item == 'Other') {
             //show other input field
             $scope.exposureOther = true;
         } else {
-           $scope.exposureOther = false; 
+            $scope.exposureOther = false; 
         }
         
     }
@@ -603,69 +383,72 @@ angular.module('alwaysHiredApp')
         //
     }
     
+    function getEducationInfo() {
+        educationService.getEducationInfo().then(function() {
+            var data = educationService.data();
+            //TODO: make sure service call did not fail
+            if(data.length != 0) {
+                $scope.educations = data;
+            } else {
+                $scope.educations = [];   
+            }
+        });
+    }
+    
+    function getWorkHistory() {
+        workHistoryService.getWorkHistory().then(function() {
+            var data = workHistoryService.data();
+            console.log(data);
+            if(data.length != 0) {
+                $scope.workHistories = data;
+            } else {
+                $scope.workHistories = [];   
+            }
+        });
+    }
+    
     function getConnectionInfo() {
-        var rtn = (function() {
-            return $http ({
-              method: 'GET',
-              url: Backand.getApiUrl() + '/1/query/data/getConnectionData',
-              params: {
-                parameters: {
-                  userid: $localStorage.userId
-                }
-              }
-            }).then(function successCallback(response) {
-                var data = response.data[0];
+            connectionService.getConnectionInfo().then(function() {
+                var data = connectionService.data();
+                //check to see if data is successful first
                 if(data === undefined) {
                     //no data yet
                 } else {
                     //look for resume url
                     $scope.connectionData = data;
-                    console.log(data);
                     $scope.checkExposureStatus($scope.connectionData.exposure);
                     $scope.isVeteran.name = $scope.connectionData.isVeteran;
                     if(data.resumeLink == null) {
                         //dats exists but no resume
                     } else {
                         
-                    }
+                    } 
                 }
-
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
             });
-        })();
     }
     
-    function getEducationInfo() {
-        var rtn = (function() {
-            var retrn = $http({
-              method: 'GET',
-              url: Backand.getApiUrl() + '/1/query/data/getEducationData',
-              params: {
-                parameters: {
-                  userid: $localStorage.userId
-                }
-              }
-            }).then(function successCallback(response) {
-                var data = response.data;
-                console.log(data);
-                if(data.length != 0) {
-                    $scope.educations = data;
-                } else {
-                    $scope.educations = [];   
-                }
-            }, function errorCallback(response) {
-
-            });
-
-            return retrn;
-        })();
+    //gets
+    function checkIfBasicConnectionsExists() {
+        connectionService.doesConnectionInfoExist().then(function() {
+            //check to see if it did not fail
+            var data = connectionService.data();
+            //set scope value
+            $scope.doesConnExist = (data == 1) ? true: false;
+        });
     }
     
     function getBasicInfo() {
         basicInfoService.getBasicInfo().then(function() {
             $scope.basicData = basicInfoService.data();
+        });
+    }
+    
+    function checkIfBasicInfoExists() {
+        basicInfoService.doesBasicInfoExist().then(function() {
+            //check to see if it did not fail
+            var data = basicInfoService.data();
+            //set scope value
+            $scope.doesBiExist = (data == 1) ? true: false;
         });
     }
 
@@ -689,7 +472,7 @@ angular.module('alwaysHiredApp')
                 $scope.isWorkExperience = "link";
                 $scope.isConnections = "link";
                 checkIfBasicInfoExists();
-                getBaiscInfo();
+                getBasicInfo();
                 
                 break;
             case 'education':
@@ -704,6 +487,7 @@ angular.module('alwaysHiredApp')
                 $scope.isEducation = "link";
                 $scope.isWorkExperience = "active";
                 $scope.isConnections = "link";
+                getWorkHistory();
                 //get basic info data and populate angular data
                 break;
             case 'connections':
@@ -727,87 +511,13 @@ angular.module('alwaysHiredApp')
         }
     }
     
-
-    
-    for (var i in $scope.basicData[0]) {
-        //here we might want to get the total number of questions answered,
-        //and if it the count is 16 (or 15, 14..etc) let the user continue
-        $scope.$watch('basicData.' + i, function(newVal, oldVal){
-            //this gets hit first
-        }, true);
-    }
-
+    //this can go into rootScope
     $scope.goTo = function (pth) {
         //check to make sure pth isn't an active tab
         window.location.href = "/student-profile/" + pth;
     }
     
-    
-    
     $scope.states = states;
     $scope.levels = levels;
     //also write logic for displaying certain directives when a tab is active
-  })
-.directive('basicInfoTab', function() {
-    return {
-        templateUrl: "../../assets/directives/basic-info-tab.html",
-        restrict: 'EA',
-        scope: true,
-        link: function(scope,elem,attribute){
-            for (var i in scope.basicData[0]) {
-                scope.$watch('basicData.' + i, function(newVal, oldVal){
-                    //this gets hit second
-                }, true);
-            }
-        }
-    };
-})
-.directive('educationTab', function() {
-    return {
-        templateUrl: "../../assets/directives/education-tab.html",
-        restrict: 'EA',
-        scope: true,
-        link: function(scope,elem,attribute){
-            for (var i in scope.educationData[0]) {
-                scope.$watch('educationData.' + i, function(newVal, oldVal){
-                    //this gets hit second
-                }, true);
-            }
-        }
-    };
-})
-.directive('connectionsTab', function() {
-    return {
-        templateUrl: "../../assets/directives/connections-tab.html",
-        restrict: 'EA',
-        scope: true,
-        link: function(scope,elem,attribute){
-            for (var i in scope.educationData[0]) {
-                scope.$watch('connectionsData.' + i, function(newVal, oldVal){
-                    //this gets hit second
-                }, true);
-            }
-        }
-    };
-})
-.directive('file', function() {
-  return {
-    restrict: 'AE',
-    scope: {
-      file: '@'
-    },
-    link: function(scope, el, attrs){
-      el.bind('change', function(event){
-          
-        var files = event.target.files;
-        var file = files[0];
-        scope.file = file;
-        scope.$parent.file = file;
-        scope.$apply();
-          console.log(scope.file);
-      });
-    }
-  };
-});
-
-
+  });
