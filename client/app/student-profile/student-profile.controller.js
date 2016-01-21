@@ -254,7 +254,12 @@ angular.module('alwaysHiredApp')
             endDate: $scope.educationData.endDate
         };
         
-        educationService.addEducation(educationData).then(function() {
+        console.log(educationData);
+        //validation layer
+        
+        //validation layer
+        
+        /*educationService.addEducation(educationData).then(function() {
             var data = educationService.data();
             
             var currentEducation = $scope.educations;
@@ -268,7 +273,7 @@ angular.module('alwaysHiredApp')
             $scope.educations = currentEducation;
             $scope.educationData = [];
             
-        });
+        });*/
         
         return;
     }
@@ -488,6 +493,8 @@ angular.module('alwaysHiredApp')
                 $scope.isWorkExperience = "active";
                 $scope.isConnections = "link";
                 getWorkHistory();
+                
+                $('#jobSalary').numeric({ allowDecimal: false });
                 //get basic info data and populate angular data
                 break;
             case 'connections':

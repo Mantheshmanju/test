@@ -362,13 +362,14 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.client %>',
           dest: '<%= yeoman.dist %>/<%= yeoman.client %>',
           src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            'bower_components/**/*',
-            'assets/images/**/*',
-            'assets/fonts/{,*/}*.*',
-            'index.html'
-          ]
+                '*.{ico,png,txt}',
+                '.htaccess',
+                'bower_components/**/*',
+                'assets/images/**/*',
+                'assets/fonts/{,*/}*.*',
+                'scripts/semantic-ui/themes/default/assets/fonts/*',
+                'index.html'
+                ]
         }, {
           expand: true,
           cwd: '.tmp/images',
@@ -378,6 +379,12 @@ module.exports = function (grunt) {
         { 
 		  expand: true,
 		  cwd: '<%= yeoman.app %>/bower_components/font-awesome', 
+		  src: 'fonts/*', 
+		  dest: '<%= yeoman.dist %>' 
+		},
+        { 
+		  expand: true,
+		  cwd: '<%= yeoman.app %>/scripts/semantic-ui/themes/default/assets', 
 		  src: 'fonts/*', 
 		  dest: '<%= yeoman.dist %>' 
 		},

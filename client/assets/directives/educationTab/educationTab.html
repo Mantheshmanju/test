@@ -33,11 +33,15 @@
       </div>
       <div class="field">
          <label>Start Date</label>
-         <input type="text" placeholder="Start Date" ng-model="educationData.startDate">
+          <datepicker date-format="MMMM, yyyy">
+            <input ng-model="educationData.startDate" type="text" placeholder="Start Date" />
+          </datepicker>
       </div>
       <div class="field">
          <label>End Date (If Applicable)</label>
-         <input type="text" placeholder="End Date" ng-model="educationData.endDate">
+          <datepicker date-format="MM-yyyy">
+            <input ng-model="educationData.endDate" type="text" placeholder="End Date" />
+          </datepicker>
       </div>
    </div>
    <div class="field" style="padding-bottom: 30px;">
@@ -111,11 +115,16 @@
        <div class="two fields">
           <div class="field">
              <label>Start Date</label>
-             <input type="text" placeholder="Start Date" ng-model="currentEducation.startDate">
+<!--             <input type="text">-->
+              <datepicker date-format="MM-yyyy">
+                <input ng-model="currentEducation.startDate" type="text"  placeholder="Start Date" />
+              </datepicker>
           </div>
           <div class="field">
              <label>(Anticipated) End Date</label>
-             <input type="text" placeholder="End Date" ng-model="currentEducation.endDate">
+              <datepicker date-format="MM-yyyy">
+                <input ng-model="currentEducation.endDate" type="text" placeholder="End Date" />
+              </datepicker>
           </div>
        </div>
   </div>

@@ -8,7 +8,8 @@ var app = angular.module('alwaysHiredApp', [
   'btford.socket-io',
   'ui.router',
   'backand',
-  'ngStorage'
+  'ngStorage',
+  '720kb.datepicker'
 ]);
 
 app.run(function($rootScope, $localStorage) {
@@ -30,6 +31,15 @@ app.run(function($rootScope, $localStorage) {
         $rootScope.isLoggedIn = false;
         window.location.href = "/login";
     }
+    
+    setTimeout(function() {
+                $('.right.menu.open').on("click",function(e){
+            e.preventDefault();
+            $('.ui.vertical.menu').toggle();
+        });
+
+        $('.ui.dropdown').dropdown();
+    }, 1000);
 });
 
 app.config(function($urlRouterProvider, $locationProvider, BackandProvider) {
