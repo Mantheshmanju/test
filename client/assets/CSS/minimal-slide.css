@@ -2,7 +2,7 @@ a.sidebar-toggle.item {
   cursor: pointer;
 }
 .full.height.image {
-  background-image: url("../images/logo_3.jpg");
+  background-image: url("../assets/images/logo_3.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

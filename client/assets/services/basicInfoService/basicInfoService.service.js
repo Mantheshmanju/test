@@ -6,7 +6,8 @@ angular.module('alwaysHiredApp')
     //var deffered = $q.defer();
     var data = [];
     var basicInfoService = {};
-  
+    console.log($localStorage.userId);
+      
     basicInfoService.getBasicInfo = function () {
         return $http({
           method: 'GET',

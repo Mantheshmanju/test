@@ -67,8 +67,6 @@ angular.module('alwaysHiredApp')
        
         
         //send to db
-        
-        console.log($scope.useremail);
         Backand.signup($scope.firstname, $scope.lastname, $scope.useremail, sha256_digest($scope.userpassword), sha256_digest($scope.userconfirmpassword), {'userRole': "student", 'isDisabled': true })
             .then(
                 function successCallback(response) {
@@ -92,7 +90,7 @@ angular.module('alwaysHiredApp')
                                     }
                                   }
                                 }).then(function successCallback(response) {
-                                    userId = response.data[0].id;
+                                    var userId = response.data[0].id;
                                     $rootScope.userId = userId;
                                     $localStorage.userId = userId;
                                     //redirect user to dashboard

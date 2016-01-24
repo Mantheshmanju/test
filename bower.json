@@ -12,7 +12,8 @@
     "lodash": "~2.4.1",
     "angular-socket-io": "~0.7.0",
     "angular-ui-router": "~0.2.15",
-    "angularjs-datepicker": "~0.2.16"
+    "angularjs-datepicker": "~0.2.16",
+    "semantic": "semantic-ui#~2.1.8"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.0"

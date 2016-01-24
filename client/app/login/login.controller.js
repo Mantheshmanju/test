@@ -30,7 +30,6 @@ angular.module('alwaysHiredApp')
                 
                 
                 $localStorage.userToken = token;
-                userToken = token;
                 
                
                 //get user id
@@ -44,7 +43,7 @@ angular.module('alwaysHiredApp')
                         }
                       }
                     }).then(function successCallback(response) {
-                        userId = response.data[0].id;
+                        var userId = response.data[0].id;
                         $rootScope.userId = userId;
                         $localStorage.userId = userId;
                         //redirect user to dashboard
