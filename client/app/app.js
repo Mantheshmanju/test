@@ -9,7 +9,8 @@ var app = angular.module('alwaysHiredApp', [
   'ui.router',
   'backand',
   'ngStorage',
-  '720kb.datepicker'
+  '720kb.datepicker',
+  'angular-progress-arc'
 ]);
 
 app.run(function($rootScope, $localStorage) {
@@ -42,7 +43,7 @@ app.run(function($rootScope, $localStorage) {
     }, 1000);
 });
 
-app.config(function($urlRouterProvider, $locationProvider, BackandProvider) {
+app.config(function($urlRouterProvider, $locationProvider, BackandProvider, $httpProvider) {
     BackandProvider.setAppName('ahplayground');
     BackandProvider.setSignUpToken('e3175594-b5d9-4a4d-a4a2-211d475964ab');
     BackandProvider.setAnonymousToken('837dab25-3e79-4fa9-b768-6aa6c9850687');

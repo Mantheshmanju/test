@@ -6,6 +6,7 @@ angular.module('alwaysHiredApp')
       templateUrl: 'assets/directives/connectionsTab/connectionsTab.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
+          $('#veteranId').numeric({allowDecimal: false, allowNegative: false});
       }
     };
   });

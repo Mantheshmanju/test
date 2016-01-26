@@ -3,6 +3,9 @@ var config = {
       bucket: 'elasticbeanstalk-us-west-2-153502733246',
       access_key: 'AKIAIW7RPKSUTMUQD6WA',
       secret_key: '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'
+    },
+    yaddress: {
+        user_key: 'A9380E76-A114-47D2-A476-34D8BF4FB334'
     }
 };
 

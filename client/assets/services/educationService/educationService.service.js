@@ -8,6 +8,7 @@ angular.module('alwaysHiredApp')
     var educationService = {};
     
     educationService.getEducationInfo = function() {
+      $('.dimmer').addClass('active');
       return $http({
               method: 'GET',
               url: Backand.getApiUrl() + '/1/query/data/getEducationData',
@@ -18,10 +19,11 @@ angular.module('alwaysHiredApp')
               }
             }).then(function successCallback(response) {
                 data = response.data;
-                console.log(data);
+                $('.dimmer').removeClass('active');
 
             }, function errorCallback(response) {
                 data = response;
+                $('.dimmer').removeClass('active');
             });  
     };
       
@@ -63,6 +65,7 @@ angular.module('alwaysHiredApp')
     };
       
     educationService.submitEducation = function(educationData) {
+        $('.dimmer').addClass('active');
         return $http ({
           method: 'PUT',
           url: Backand.getApiUrl() + '/1/objects/studentEducation/' + educationData.id,
@@ -73,12 +76,13 @@ angular.module('alwaysHiredApp')
           data: educationData
         }).then(function successCallback(response) {
             data = response.data;
+            $('.dimmer').removeClass('active');
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             data = response;
             swal("Oops!", "Error occured: " + response, "error");
-            
+            $('.dimmer').removeClass('active');            
         }); 
     };
     

@@ -8,6 +8,7 @@ angular.module('alwaysHiredApp')
       var connectionService = {};
       
       connectionService.getConnectionInfo = function() {
+        $('.dimmer').addClass('active');
         return $http ({
               method: 'GET',
               url: Backand.getApiUrl() + '/1/query/data/getConnectionData',
@@ -18,9 +19,12 @@ angular.module('alwaysHiredApp')
               }
             }).then(function successCallback(response) {
                 data = response.data[0];
+                $('.dimmer').removeClass('active');
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
+                console.log(response);
+                $('.dimmer').removeClass('active');
             });  
       };
       
@@ -36,12 +40,27 @@ angular.module('alwaysHiredApp')
                 }).then(function successCallback(response) {
                     console.log(response);
                     data = response.data;
+                    $('.ui.icon.message').fadeOut('slow', function(){
+                        $('.ui.upload.success.message').fadeIn();
+                        setTimeout(function() {
+                            $('.ui.upload.success.message').fadeOut();
+                        }, 1000);
+                    });
+                                                                    
+
                     //TODO: convert this next statement to a green message
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     data = response;
                     swal("Oops!", "Error occured: " + response, "error");
+                    $('.ui.icon.message').fadeOut('slow', function() {
+                        $('.ui.upload.negative.message').fadeIn();
+                        setTimeout(function() {
+                            $('.ui.upload.negative.message').fadeOut();
+                        }, 1000);
+                    });
+
                 });
       };
       

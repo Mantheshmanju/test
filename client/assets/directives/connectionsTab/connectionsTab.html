@@ -154,6 +154,26 @@
                 <a ng-if="connectionData.resumeLink" href="{{connectionData.resumeLink}}">{{connectionData.resumeKey}}</a>
 
                 <span ng-if="!connectionData.resumeLink" >{{connectionData.resumeKey}}</span>
+                <div class="ui icon message" style="display: none">
+                  <i class="notched circle loading icon"></i>
+                  <div class="content">
+                    <p>Uploading File...</p>
+                  </div>
+                </div>
+                
+                <div class="ui upload success message" style="display: none">
+                  <i class="close icon"></i>
+                  <div class="header">
+                    File Upload Success!
+                  </div>
+                </div>
+                
+                <div class="ui upload negative message" style="display: none">
+                  <i class="close icon"></i>
+                  <div class="header">
+                    File Upload Fail
+                  </div>
+                </div>
             </div>
         </div>
         

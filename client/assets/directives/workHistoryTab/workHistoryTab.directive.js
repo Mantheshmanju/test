@@ -6,6 +6,7 @@ angular.module('alwaysHiredApp')
       templateUrl: 'assets/directives/workHistoryTab/workHistoryTab.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
+          $('#jobSalary').numeric({allowDecimal: false, allowNegative: false});
       }
     };
   });

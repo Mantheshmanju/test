@@ -1,7 +1,7 @@
 'use strict';
 /*TODO: Education tab will need to be more invovled, we will have the user add in educations (max of 3) */
 angular.module('alwaysHiredApp')
-  .controller('StudentProfileCtrl', function ($scope, $rootScope, $http, Backand, $localStorage, basicInfoService, workHistoryService, connectionService, educationService,alwaysHiredService) {
+  .controller('StudentProfileCtrl', function ($scope, $rootScope, $http, Backand, $localStorage, basicInfoService, workHistoryService, connectionService, educationService, alwaysHiredService) {
     $rootScope.showNav = true;
     //defaults
     $scope.isBasicInfo = "active";
@@ -23,6 +23,19 @@ angular.module('alwaysHiredApp')
     
     $scope.connectionTags = connectionTagTemplate;
     
+    $scope.showProgress = false;
+    $scope.progressText = '';
+    $scope.percentDone = 0;
+    
+    //progress
+    
+    $scope.size = 50;
+    $scope.progress = 0;
+    $scope.strokeWidth = 50;
+    $scope.stroke = '#333';
+    $scope.counterClockwise = '';
+    
+    //end progress
     
     $scope.isVeteran = {
         name: 'No'
@@ -40,6 +53,8 @@ angular.module('alwaysHiredApp')
     $scope.creds = config.creds;
 
     $scope.upload = function(e) {
+      
+      $('.ui.icon.message').fadeIn()
       // Configure The S3 Object 
       AWS.config.update({ accessKeyId: $scope.creds.access_key, secretAccessKey: $scope.creds.secret_key });
       AWS.config.region = 'us-east-1';
@@ -56,23 +71,28 @@ angular.module('alwaysHiredApp')
           }
           else {
             // Success!
-            console.log(data);
             var path = data.Location;
             //send path to db
             $scope.connectionData.resumeLink = path;
             $scope.connectionData.resumeKey = data.key;
             $scope.submitConnectionsAfterUpload();
-            alert('Upload Done');
           }
         })
         .on('httpUploadProgress',function(progress) {
               // Log Progress Information
-              console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+                console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
             });
       }
       else {
         // No File Selected
         alert('No File Selected');
+        $('.ui.icon.message').fadeOut('slow', function() {
+            $('.ui.upload.negative.message').fadeIn();
+            setTimeout(function() {
+                $('.ui.upload.negative.message').fadeOut();
+            }, 1000);
+        });
+
       }
     }
     
@@ -115,6 +135,7 @@ angular.module('alwaysHiredApp')
     $scope.submitBasicData = function() {
         //check if we exist in db yet
         var doesExist = $scope.doesBiExist;
+        
         //get data ready
         var basicInfoData =
         {
@@ -134,12 +155,43 @@ angular.module('alwaysHiredApp')
             whyAlwaysHired: $scope.basicData.whyAlwaysHired,
         };
         
+        //validate our data 
+//        basicInfoService.validateBasicInfo(basicInfoData)
+//          .then(function() {
+//            var rtn = basicInfoService.data();
+//            if(rtn.code != 0) {
+//                swal("", "", "error");
+//            }
+////            //TOD: STOP SUBMIT PROCESS HERE IF GETS HIT
+////            if(rtn.data === undefined) {
+////              alert("validation failed");
+////                return;
+////            }
+////            //get basic info
+////            //if success
+////            var validation = rtn.code;
+////            if(validation.code != 0) {
+////                //failed
+////                
+////            }
+//            
+//            //update our object with validated and cleaned address
+//            $scope.basicData.Address1 = (rtn.data.Address1 != null) ? rtn.data.Address1 : ;
+//            $scope.basicData.Address2 = rtn.data.Address2;
+//            $scope.basicData.City = rtn.data.City;
+//            $scope.basicData.State = rtn.data.State;
+//            basicInfoData.Address1 = $scope.basicData.Address1;
+//            basicInfoData.Address2 = $scope.basicData.Address2;
+//            basicInfoData.City = $scope.basicData.City;
+//            basicInfoData.State = $scope.basicData.State;
+//        });
+        
         if(doesExist) {
             //grab id from db
             var id = $scope.basicData.id;
             //update   
             basicInfoService.updateBasicInfo(basicInfoData, id).then(function() {
-                var rtn = basicInfoService.data();
+                var validation = basicInfoService.data();
                 //get basic info
                 //if success
                 getBasicInfo();
@@ -259,7 +311,7 @@ angular.module('alwaysHiredApp')
         
         //validation layer
         
-        /*educationService.addEducation(educationData).then(function() {
+        educationService.addEducation(educationData).then(function() {
             var data = educationService.data();
             
             var currentEducation = $scope.educations;
@@ -273,7 +325,7 @@ angular.module('alwaysHiredApp')
             $scope.educations = currentEducation;
             $scope.educationData = [];
             
-        });*/
+        });
         
         return;
     }

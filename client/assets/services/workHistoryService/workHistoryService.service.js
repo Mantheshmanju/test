@@ -7,6 +7,7 @@ angular.module('alwaysHiredApp')
     var workHistoryService = {};
     
     workHistoryService.getWorkHistory = function () {
+        $('.dimmer').addClass('active');
         return $http ({
           method: 'GET',
           url: Backand.getApiUrl() + '/1/query/data/getWorkHistoryData',
@@ -22,15 +23,14 @@ angular.module('alwaysHiredApp')
             } else {
                 data = [];
             }
-            
+            $('.dimmer').removeClass('active');
             console.log(data);
             
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-            console.log(response);
             swal("Oops!", "Error occured: " + response, "error");
-
+            $('.dimmer').removeClass('active');
             setTimeout(function() {
                $('.dimmer').removeClass('active');
             }, 200);
@@ -39,7 +39,6 @@ angular.module('alwaysHiredApp')
     };
     
     workHistoryService.addWorkHistory = function (workHistoryData) {
-        console.log(workHistoryData);
         return $http ({
           method: 'POST',
           url: Backand.getApiUrl() + '/1/objects/studentWorkHistory?returnObject=true',
@@ -49,7 +48,6 @@ angular.module('alwaysHiredApp')
           data: workHistoryData
         }).then(function successCallback(response) {
             var response = response.data[0];
-            console.log(response);
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
