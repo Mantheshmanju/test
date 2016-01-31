@@ -32,9 +32,9 @@ app.run(function($rootScope, $localStorage) {
         $rootScope.isLoggedIn = false;
         window.location.href = "/login";
     }
-    
+        
     setTimeout(function() {
-                $('.right.menu.open').on("click",function(e){
+        $('.right.menu.open').on("click",function(e){
             e.preventDefault();
             $('.ui.vertical.menu').toggle();
         });

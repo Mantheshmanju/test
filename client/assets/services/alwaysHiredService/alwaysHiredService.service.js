@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alwaysHiredApp')
-  .service('alwaysHiredService', function () {
+  .service('alwaysHiredService', function ($localStorage, $http, Backand) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     
     var data = [];
@@ -24,6 +24,41 @@ angular.module('alwaysHiredApp')
             return '(In Progress)';
         else
             return null;
+    };
+    
+    alwaysHiredService.getUserAccess = function() {
+        var id = $localStorage.userId;
+        var role = '';
+        
+        if(id === undefined) {
+            data = '*';   
+        } else {
+            //1/query/data/checkUserAccess
+            var userAccessData = {
+                  
+            }
+            
+            try {
+                return $http ({
+                  method: 'GET',
+                  url: Backand.getApiUrl() + '/1/query/data/checkUserAccess',
+                  params: {
+                    parameters: {
+                        userid: id 
+                    }
+                  }
+                }).then(function successCallback(response) {
+                    //if response.data is empty, this should mean there is no access level with this user,
+                    //we might want to update this user in our db to a 'Need Review' status to figure out why they
+                    //do not have a role.
+                
+                    data = response.data[0].userRole;               
+                });
+            } catch(ex) {
+                console.log(ex);
+                data = '*';
+            }
+        }
     };
     
     alwaysHiredService.data = function() { return data; };

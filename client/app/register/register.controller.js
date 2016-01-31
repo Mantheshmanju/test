@@ -67,7 +67,7 @@ angular.module('alwaysHiredApp')
        
         
         //send to db
-        Backand.signup($scope.firstname, $scope.lastname, $scope.useremail, sha256_digest($scope.userpassword), sha256_digest($scope.userconfirmpassword), {'userRole': "student", 'isDisabled': true })
+        Backand.signup($scope.firstname, $scope.lastname, $scope.useremail, sha256_digest($scope.userpassword), sha256_digest($scope.userconfirmpassword), {'userRole': "Student", 'isDisabled': true })
             .then(
                 function successCallback(response) {
                     //$('.dimmer').removeClass('active');

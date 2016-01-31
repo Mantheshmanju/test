@@ -75,6 +75,7 @@ angular.module('alwaysHiredApp')
             //send path to db
             $scope.connectionData.resumeLink = path;
             $scope.connectionData.resumeKey = data.key;
+              console.log(path);
             $scope.submitConnectionsAfterUpload();
           }
         })
@@ -220,15 +221,26 @@ angular.module('alwaysHiredApp')
         }
         
         return (function() {
-            var id = $scope.connectionData.id;
-            if(id != null) {
-                connectionService.afterFileUpload(connectionData, id).then(function() {
-                    //check if successful
-                    var data = connectionService.data();
-                    //grab connection info
-                    getConnectionInfo();
-                });
-            }
+//            var id = $scope.connectionData.id;
+//            if(id != null) {
+//                connectionService.afterFileUpload(connectionData, id).then(function() {
+//                    //check if successful
+//                    var data = connectionService.data();
+//                    //grab connection info
+//                    getConnectionInfo();
+//                });
+//            } else {
+//                
+//            }
+            
+            $scope.submitConnections();
+            
+            $('.ui.icon.message').fadeOut('slow', function(){
+                $('.ui.upload.success.message').fadeIn();
+                setTimeout(function() {
+                    $('.ui.upload.success.message').fadeOut();
+                }, 1000);
+            });
             
 
         })();

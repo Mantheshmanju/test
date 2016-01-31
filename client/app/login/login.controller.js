@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('alwaysHiredApp')
-  .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage, $http, $log) {
+  .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage, $http, $log, alwaysHiredService) {
+    //check access
+    alwaysHiredService.getUserAccess().then(function() {
+        var role = alwaysHiredService.data();
+        console.log(role);
+    });
+    
     $scope.message = 'Hello';
     $rootScope.showNav = true;
     
@@ -64,10 +70,6 @@ angular.module('alwaysHiredApp')
                     
                     return retrn;
                 })();
-               
-
-                
-
             }, 
             function (data, status, headers, config)  {
                 $('.error').fadeIn(500);
