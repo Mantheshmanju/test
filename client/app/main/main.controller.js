@@ -4,9 +4,11 @@
 
 class MainController {
 
-  constructor($http, $scope, socket, $rootScope, $localStorage) {
+  constructor($http, $scope, socket, $rootScope, $localStorage, mainService) {
     this.$http = $http;
     this.awesomeThings = [];
+      
+    $scope.betaEmail = '';
       
     $('.dimmer').removeClass('active');
     $rootScope.showNav = false;
@@ -18,6 +20,13 @@ class MainController {
         delete $localStorage.userToken;
         delete $localStorage.userId;
         $rootScope.isLoggedIn = false;
+    }
+    
+    //write api logic to handle email address beta list
+    $scope.addEmailBetaList = function() {
+        mainService.addEmailBetalist($scope.betaEmail).then(function() {
+            $scope.betaEmail = '';
+        });
     }
 
     $http.get('/api/things').then(response => {

@@ -1,66 +1,61 @@
 <navbar></navbar>
-
-<div class="ui grid">
-    <div class="sixteen wide column" style="padding-top: 0 !important; padding-left: 0 !important; padding-right: 0 !important;">
-      <div class="full height image" style="">
-        <div class="ui main container">
-          <div class="menu bar">
-            <div class="ui large inverted secondary menu" style="float: right;">
-              <a class="sidebar-toggle item railway" href="/login" ng-if="$root.isLoggedIn == false"> Log In
-              </a>
-                
-            <a class="ui sidebar-toggle item railway" href="/dashboard"ng-if="$root.isLoggedIn == true">     
-                <i class="browser icon"></i>
-                Dashboard
-            </a>
-                
-              <a class="sidebar-toggle item railway" href="" ng-click="logout()" ng-if="$root.isLoggedIn == true"> Log Out
-              </a>
-            </div>
-          </div>
-
-          <div class="ui information container">
-            <h1 class="ui center aligned header railway" style="color: #FF7F50;">ALWAYSHIRED</h1>
-            <p class="railway" style="color: white;">We train high potential poeple to secure and succed in the best technology sales roles, period.</p>
-                <button class="ui big red button railway" style="margin-right: auto; margin-left: auto; display: block;" ng-click="goToRegister()">
-                  Sign Up
-                </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="sixteen wide column">
-        <div class="ui grid container" style="padding-top: 2%; padding-bottom: 4%;">
-            <div class="row">
-              <h1>About</h1>
-            </div>
-
-        <div class="ui divider"></div>
-        <div class="ui grid">
-            <div class="eight wide column">
-                <p>Gastropub salvia twee four loko. Mixtape 90's drinking vinegar everyday carry cornhole. Jean shorts typewriter chambray, poutine four dollar toast crucifix whatever mustache street art ethical fixie literally yuccie bitters paleo. Kitsch jean shorts tote bag sustainable. Fap wolf yr, drinking vinegar squid dreamcatcher leggings normcore crucifix cardigan food truck gastropub godard viral. Cornhole schlitz bushwick aesthetic. Leggings yuccie fixie, slow-carb yr disrupt ramps asymmetrical lo-fi quinoa.</p>
-            </div>
-            
-            <div class="eight wide column">
-                <p>Bicycle rights blue bottle DIY freegan, stumptown quinoa paleo retro marfa. Blog farm-to-table irony art party shoreditch chicharrones. IPhone bespoke godard lo-fi, waistcoat biodiesel flexitarian williamsburg mumblecore. Crucifix street art listicle pour-over, stumptown intelligentsia distillery ramps four loko affogato. Occupy brooklyn gentrify four loko. Heirloom pug synth, mustache selfies microdosing shoreditch vice typewriter tacos cray polaroid sriracha. Pork belly truffaut ethical, hella shoreditch poutine brunch.</p>
-            </div> 
-            
-            <div class="eight wide column">
-                <p>Leggings whatever shoreditch aesthetic synth kale chips. Neutra marfa hoodie photo booth plaid fingerstache, aesthetic vegan kickstarter actually waistcoat. Mumblecore selvage YOLO shoreditch, you probably haven't heard of them fap farm-to-table normcore vinyl knausgaard fixie retro street art. Bitters +1 chillwave knausgaard tattooed selfies. Polaroid whatever iPhone freegan, heirloom cronut etsy pickled. Hella 3 wolf moon health goth tofu, whatever iPhone freegan blue bottle 90's sartorial plaid chicharrones fingerstache portland paleo. Selfies williamsburg photo booth brunch shabby chic chillwave, austin +1 fixie.</p>
-            </div>
-            
-            <div class="eight wide column">
-                <p>Aesthetic typewriter wayfarers synth, vegan microdosing fap gentrify kinfolk bicycle rights gluten-free cray locavore. Williamsburg lo-fi 8-bit pork belly, ugh offal +1 schlitz swag ethical blog. Shoreditch hammock venmo, organic plaid offal occupy ugh chia try-hard kitsch photo booth. Letterpress beard selfies, actually crucifix cronut kale chips flexitarian listicle ennui yr tacos occupy knausgaard. Kitsch portland taxidermy, tumblr affogato stumptown food truck. Lumbersexual letterpress etsy, 90's trust fund four loko listicle. Mumblecore art party green juice tousled, organic street art stumptown ramps kitsch forage slow-carb beard scenester keytar vinyl.</p>
-            </div>
+<div class="ui body grid">
+    <div class="row">
+            <div class="one wide column">
         
-        </div>
-      </div>
-    </div>
+            </div>
 
+            <div class="eleven wide column">
+<!--
+                <div class="ui information container">
+                        <h1 class="ui center aligned header railway" style="color: #FF7F50">ALWAYSHIRED</h1>
+                </div>
+                
+                <div class="ui container" style="background-color: white;">
+                    <h1 class="header railway" style="color: black;">Let's get you a job.</h1>
+                </div>
+-->
+                <form class="ui landing form" style="">
+                  <div class="field">
+                        <h3 class="ui left aligned header railway headerFix" style="color: #FF7F50;">ALWAYSHIRED</h1>
+                  </div>
+                  <div class="field" id="belowTitle" style="margin-top: 75px;">
+                        <h1 class="ui left aligned header railway headerFix" style="color: white;">Let's find you a job.</h3>
+                  </div>
+                  <div class="field" style="">
+                        <h1 class="ui left aligned header railway headerFix" style="color: white;">Tech Sales Bootcamp</h3>
+                  </div>
+                  <div class="field" style="margin-top: 20px;">
+                        <h2 class="belowHeader railway" style="color: #FF7F50; font-weight: 100;">People who take our training course get jobs making $70k+ within 30 days</h4>
+                      
+                      
+                  </div>
+                    
+                  <div class="field">
+                        <div class="ui landing divider" style="width: 100% !important; max-width: 500px; !important"></div>
+                        <h4 class="railway" style="color: white; font-weight: 100;">Sign up here to get invited to our beta</h4>
+                  </div>
+                    
+                  <div class="fields" style="max-width: 500px; !important">
+                    <div class="twelve wide field">
+                        <input style="width: 100%;" type="text" class="text" ng-model="betaEmail" placeholder="email@address.com" />
+                    </div>
+                    <div class="four wide field">
+                        <button  style="width: 100%;" class="ui green button railway" ng-click="addEmailBetaList()">SUBMIT</button>
+                    </div>
+                  </div>
+                </form>
+
+            </div>
+
+            <div class="four wide column">
+
+            </div>
+    </div>
 </div>
 
 
 
 
-<footer></footer>
+
+<!--<footer></footer>-->

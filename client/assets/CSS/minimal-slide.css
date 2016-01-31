@@ -2,17 +2,14 @@ a.sidebar-toggle.item {
   cursor: pointer;
 }
 .full.height.image {
-  background-image: url("../assets/images/logo_3.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
+  background-image: url("../assets/images/landing.png"); 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  width: 100%;
-}
-.ui.main.container {
-  min-height: 100vh;
 }
 .ui.information.container {
-  margin-top: 10%;
+  margin-top: 25%;
   width: 50%;
 }
 .ui.information.container h1, .ui.information.container p {
@@ -36,4 +33,128 @@ a.sidebar-toggle.item {
 }
 .ui.embed {
   padding-bottom: 45%;
+}
+
+.ui.body.grid {
+    
+    min-height: 700px;
+}
+
+
+h1.ui.headerFix {
+    font-size: 3em !important;
+    background-color: black;
+    width: auto;
+    display: inline-block;
+    padding: 10px;
+}
+
+@media (min-width:992px){
+    h1.ui.headerFix {
+        font-size: 3.2em !important;
+        background-color: black;
+        width: auto;
+        display: inline-block;
+        padding: 10px;
+    }
+    
+    h3.ui.headerFix {
+        font-size: 3em !important;
+    }
+    
+    h2.belowHeader {
+        width: 60%;   
+    }
+    
+    #lowerSection {
+        width: 60% !important;   
+    }
+    
+   .ui.landing.divider {
+        padding-top: 50px;   
+    }
+    
+    .ui.landing.form {
+        margin-top: 15% !important;
+    }
+    
+}
+
+@media (max-width:992px){
+    h1.ui.headerFix {
+        font-size: 2.7em !important;
+    }
+    
+    h3.ui.headerFix {
+        font-size: 2.5em !important;
+    }
+    
+    h2.belowHeader {
+        font-size: 1.5em !important;
+    }
+    
+    #lowerSection {
+        width: 100% !important;   
+    }
+    
+   .ui.landing.divider {
+        padding-top: 50px; 
+    }
+    
+    .ui.landing.form {
+        margin-top: 30% !important;
+    }
+}
+
+
+@media (max-width:682px){
+    h1.ui.headerFix {
+        font-size: 2.4em !important;
+    }
+    
+    h3.ui.headerFix {
+        font-size: 2.1em !important;
+    }
+    
+    h2.belowHeader {
+        font-size: 1.4em !important;
+    }
+    
+    #belowTitle {
+        margin-top: 45px !important;
+    }
+    
+    .ui.landing.divider {
+        padding-top: 35px;   
+    }
+    
+    .ui.landing.form {
+        margin-top: 32% !important;
+    }
+}
+
+@media (max-width:536px){
+    h1.ui.headerFix {
+        font-size: 2em !important;
+    }
+    
+    h3.ui.headerFix {
+        font-size: 2.3em !important;
+    }
+    
+    h2.belowHeader {
+        font-size: 1.4em !important;
+    }
+    
+    #belowTitle {
+        margin-top: 35px !important;
+    }
+    
+    .ui.landing.divider {
+        padding-top: 25px; 
+    }
+    
+    .ui.landing.form {
+        margin-top: 40% !important;
+    }
 }
