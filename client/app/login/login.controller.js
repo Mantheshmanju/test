@@ -3,11 +3,10 @@
 angular.module('alwaysHiredApp')
   .controller('LoginCtrl',  function ($scope, Backand, $rootScope, $localStorage, $http, $log, alwaysHiredService) {
     //check access
-    alwaysHiredService.getUserAccess().then(function() {
-        var role = alwaysHiredService.data();
-        console.log(role);
-    });
-    
+//    alwaysHiredService.getUserAccess().then(function() {
+//        var role = alwaysHiredService.data();
+//    });
+//    
     $scope.message = 'Hello';
     $rootScope.showNav = true;
     
@@ -42,7 +41,7 @@ angular.module('alwaysHiredApp')
                 var rtn = (function() {
                     var retrn = $http({
                       method: 'GET',
-                      url: Backand.getApiUrl() + '/1/query/data/getUserIdByEmail',
+                      url: Backand.getApiUrl() + '/1/query/data/getUserDataByEmail',
                       params: {
                         parameters: {
                           email: $scope.loginusername
@@ -50,8 +49,11 @@ angular.module('alwaysHiredApp')
                       }
                     }).then(function successCallback(response) {
                         var userId = response.data[0].id;
+                        var userRole = response.data[0].userRole;
+                        console.log(userRole);
                         $rootScope.userId = userId;
                         $localStorage.userId = userId;
+                        $localStorage.userRole = userRole;
                         //redirect user to dashboard
                         window.location.href = "/dashboard";
                         setTimeout(function() {

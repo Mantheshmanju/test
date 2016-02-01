@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('alwaysHiredApp')
-  .controller('DashboardCtrl', function ($scope, $rootScope) {
+  .controller('DashboardCtrl', function ($scope, $rootScope, $localStorage) {
+
     $rootScope.showNav = true;
     
     $('.card .dimmer')
@@ -9,6 +10,8 @@ angular.module('alwaysHiredApp')
           on: 'hover'
         })
     ;
+    
+
 
     //get user information
     //check to see if they have completely filled out their profile.

@@ -2,6 +2,7 @@
 
 angular.module('alwaysHiredApp')
   .config(function ($stateProvider) {
+    
     $stateProvider
       .state('login', {
         url: '/login',

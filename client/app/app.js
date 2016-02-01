@@ -13,7 +13,7 @@ var app = angular.module('alwaysHiredApp', [
   'angular-progress-arc'
 ]);
 
-app.run(function($rootScope, $localStorage) {
+app.run(function($rootScope, $localStorage, $q) {
     $rootScope.isLoggedIn = false; 
     $rootScope.showNav = false;
     
@@ -29,6 +29,7 @@ app.run(function($rootScope, $localStorage) {
     $rootScope.logout = function() {
         delete $localStorage.userToken;
         delete $localStorage.userId;
+        delete $localStorage.userRole;
         $rootScope.isLoggedIn = false;
         window.location.href = "/login";
     }

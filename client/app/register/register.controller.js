@@ -83,7 +83,7 @@ angular.module('alwaysHiredApp')
                             var rtn = (function() {
                                 var retrn = $http({
                                   method: 'GET',
-                                  url: Backand.getApiUrl() + '/1/query/data/getUserIdByEmail',
+                                  url: Backand.getApiUrl() + '/1/query/data/getUserDataByEmail',
                                   params: {
                                     parameters: {
                                       email: $scope.useremail
@@ -91,6 +91,7 @@ angular.module('alwaysHiredApp')
                                   }
                                 }).then(function successCallback(response) {
                                     var userId = response.data[0].id;
+                                    var userRole = response.data[0].userRole;
                                     $rootScope.userId = userId;
                                     $localStorage.userId = userId;
                                     //redirect user to dashboard
