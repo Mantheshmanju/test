@@ -2,7 +2,7 @@
 
 This project was built on the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.0.2.
 
-### Prerequisites
+## Prerequisites
 
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
@@ -10,7 +10,7 @@ This project was built on the [Angular Full-Stack Generator](https://github.com/
 - [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
 - [SQLite](https://www.sqlite.org/quickstart.html)
 
-### Developing
+## Developing
 
 1. Run `npm install` to install server dependencies.
 
