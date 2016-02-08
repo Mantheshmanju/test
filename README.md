@@ -10,7 +10,7 @@ This project was built on the [Angular Full-Stack Generator](https://github.com/
 - [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
 - [SQLite](https://www.sqlite.org/quickstart.html)
 
-## Developing
+## Development
 
 1. Run `npm install` to install server dependencies.
 
