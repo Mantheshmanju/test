@@ -1,4 +1,4 @@
-![alt tag](client/assets/images/githublogo.png)
+![alt tag](http://jdmdev.net/assets/images/githublogo.png)
 
 This project was built on the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.0.2.
 
