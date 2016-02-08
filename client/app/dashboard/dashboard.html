@@ -2,10 +2,10 @@
 <div class="ui container" style="padding-left: 20px; padding-right: 20px; min-height: 80vh;">
     <div class="ui grid" style="min-height: initial;">
         <div class="sixteen wide column">
-            <div class="ui icon message">
+            <div class="ui icon message" ng-if="progress <= 70">
               <i class="tasks icon"></i>
               <div class="header">
-                Your profile is <span style="color: red;">70%</span> complete, finding jobs will be easier if you complete your <a href="/student-profile">profile</a>!
+                Your profile is <span style="color: red;">{{progress}}%</span> complete, finding jobs will be easier if you complete your <a href="/student-profile">profile</a>!
               </div>
             </div>
         </div>

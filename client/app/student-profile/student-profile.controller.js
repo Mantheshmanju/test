@@ -452,6 +452,14 @@ angular.module('alwaysHiredApp')
         //
     }
     
+    function getProfileProgress() {
+        alwaysHiredService.getProfileProgress().then(function() {
+            var data = alwaysHiredService.data();
+            var progress = Math.ceil(Math.round(data.PercentageCount * 100)/5)*5;
+            if(progress > 100) progress = 100;
+        });
+    }
+    
     function getEducationInfo() {
         educationService.getEducationInfo().then(function() {
             var data = educationService.data();
@@ -590,5 +598,6 @@ angular.module('alwaysHiredApp')
     
     $scope.states = states;
     $scope.levels = levels;
+    getProfileProgress();
     //also write logic for displaying certain directives when a tab is active
   });

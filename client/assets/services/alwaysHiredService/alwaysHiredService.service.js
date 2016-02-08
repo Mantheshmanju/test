@@ -7,6 +7,28 @@ angular.module('alwaysHiredApp')
     var data = [];
     var alwaysHiredService = {};
     
+    alwaysHiredService.getProfileProgress = function() {
+            var output = '',
+                service = $http ({
+                  method: 'GET',
+                  url: Backand.getApiUrl() + '/1/query/data/getProfileProgress',
+                  params: {
+                    parameters: {
+                      userid: '39'
+                    }
+                  }
+                }).then(function successCallback(response) {
+                    //if response.data is empty, this should mean there is no access level with this user,
+                    //we might want to update this user in our db to a 'Need Review' status to figure out why they
+                    //do not have a role.
+                
+                    data = response.data[0];
+                    data.IsSuccess = response.status == 200;
+                }); 
+        
+            return service;
+    };
+    
     alwaysHiredService.getFormattedYear = function(date) {
         try {
             if(date.length >= 4)
