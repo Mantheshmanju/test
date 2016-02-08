@@ -1,8 +1,6 @@
-# always-hired
+![alt tag](client/assets/images/githublogo.png)
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.0.2.
-
-## Getting Started
+This project was built on the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.0.2.
 
 ### Prerequisites
 
@@ -20,9 +18,13 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 3. Run `grunt serve` to start the development server. It should automatically open the client in your browser when ready.
 
-## Build & development
+## QA
 
-Run `grunt build` for building and `grunt serve` for preview.
+1. Run `grunt build` for building and `grunt serve` for preview.
+
+2. Run `grunt buildcontrol:heroku`
+
+3. Run `heroku open`
 
 ## Testing
 
