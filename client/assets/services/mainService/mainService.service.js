@@ -10,8 +10,12 @@ angular.module('alwaysHiredApp')
     mainService.addEmailBetalist = function(email) {
         $('.dimmer').addClass('active');
         
+        var createdOn = new moment().format("MM/DD/YYYY HH:mm"),
+            createdOn = new moment(createdOn).toDate();
+        
         var emailObj = {
-            email: email
+            email: email,
+            createdOn: createdOn
         };
         
         return $http ({

@@ -28,6 +28,7 @@
     <!-- build:css({.tmp,client}) app/app.css -->
       <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="app/activity/activity.css">
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/dashboard/dashboard.css">
       <link rel="stylesheet" href="app/login/login.css">
@@ -125,7 +126,8 @@
       <script src="bower_components/aws-sdk/dist/aws-sdk.min.js">   </script>
   <script src="scripts/alwaysHired.js"></script>
   <script src="assets/services/alwaysHiredService/alwaysHiredService.service.js"></script>
-      <script src="assets/services/mainService/mainService.service.js"></script>
+  <script src="assets/services/activityService/activityService.service.js"></script>
+  <script src="assets/services/mainService/mainService.service.js"></script>
   <script src="assets/services/basicInfoService/basicInfoService.service.js"></script>
   <script src="assets/services/workHistoryService/workHistoryService.service.js"></script>
   <script src="assets/services/connectionService/connectionService.service.js"></script>
@@ -145,21 +147,23 @@
       </script>
       <!-- injector:js -->
       <script src="components/util/util.module.js"></script>
-      <script src="app/register/register.js"></script>
+      <script src="app/register/register.controller.js"></script>
+      <script src="app/app.constant.js"></script>
+      <script src="app/dashboard/dashboard.controller.js"></script>
       <script src="app/dashboard/dashboard.js"></script>
       <script src="app/login/login.controller.js"></script>
       <script src="app/login/login.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
-      <script src="app/register/register.controller.js"></script>
-      <script src="app/dashboard/dashboard.controller.js"></script>
+      <script src="app/activity/activity.js"></script>
+      <script src="app/register/register.js"></script>
       <script src="app/student-profile/student-profile.controller.js"></script>
       <script src="app/student-profile/student-profile.js"></script>
       <script src="components/footer/footer.directive.js"></script>
       <script src="components/navbar/navbar.controller.js"></script>
       <script src="components/navbar/navbar.directive.js"></script>
       <script src="components/socket/socket.service.js"></script>
-      <script src="app/app.constant.js"></script>
+      <script src="app/activity/activity.controller.js"></script>
       <script src="components/util/util.service.js"></script>
       <!-- endinjector -->
     <!-- endbuild -->

@@ -55,7 +55,11 @@ angular.module('alwaysHiredApp')
                         $localStorage.userId = userId;
                         $localStorage.userRole = userRole;
                         //redirect user to dashboard
-                        window.location.href = "/dashboard";
+                        
+                        if(userRole == 'S')
+                            window.location.href = "/dashboard";
+                        else
+                            window.location.href = "/activity";
                         setTimeout(function() {
                            $('.dimmer').removeClass('active');
                         }, 200);
