@@ -455,6 +455,7 @@ angular.module('alwaysHiredApp')
     function getProfileProgress() {
         alwaysHiredService.getProfileProgress().then(function() {
             var data = alwaysHiredService.data();
+            console.log(data);
             var progress = Math.ceil(Math.round(data.PercentageCount * 100)/5)*5;
             if(progress > 100) progress = 100;
         });

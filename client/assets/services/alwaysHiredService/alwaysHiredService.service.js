@@ -14,7 +14,7 @@ angular.module('alwaysHiredApp')
                   url: Backand.getApiUrl() + '/1/query/data/getProfileProgress',
                   params: {
                     parameters: {
-                      userid: '39'
+                      userid: $localStorage.userId
                     }
                   }
                 }).then(function successCallback(response) {
