@@ -7,6 +7,34 @@ angular.module('alwaysHiredApp')
     var data = [];
     var alwaysHiredService = {};
     
+    alwaysHiredService.getUsersIpAddress = function () {
+//      $.get("http://ipinfo.io", function(response) {
+//    alert(response.ip);
+//}, "jsonp");  
+        
+        var service = $http ({
+          method: 'GET',
+          url: 'http://ipinfo.io',
+          params: {
+            parameters: {
+            }
+          }
+        }).then(function successCallback(response) {
+            //if response.data is empty, this should mean there is no access level with this user,
+            //we might want to update this user in our db to a 'Need Review' status to figure out why they
+            //do not have a role.
+            data = {
+                IP: response.data.ip,
+                ISP: response.data.org,
+                City: response.data.city,
+                Region: response.data.region,
+                PostalCode: response.data.postal
+            };
+        }); 
+        
+        return service;
+    };
+    
     alwaysHiredService.getProfileProgress = function() {
             var output = '',
                 service = $http ({

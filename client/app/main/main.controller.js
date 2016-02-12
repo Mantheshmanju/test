@@ -4,7 +4,7 @@
 
 class MainController {
 
-  constructor($http, $scope, socket, $rootScope, $localStorage, mainService) {
+  constructor($http, $scope, socket, $rootScope, $localStorage, mainService, alwaysHiredService, $timeout) {
     this.$http = $http;
     this.awesomeThings = [];
       
@@ -24,8 +24,29 @@ class MainController {
     
     //write api logic to handle email address beta list
     $scope.addEmailBetaList = function() {
-        mainService.addEmailBetalist($scope.betaEmail).then(function() {
+        //regex email
+        //^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$
+        var email = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
+        var regex = new RegExp(email);
+        var test = regex.test($scope.betaEmail);
+        if(!test) {
+            $scope.emailError = 'Email is not in correct format.';
+            $('.ui.error.message').show();
             $scope.betaEmail = '';
+            $(".close.icon").click(function(){
+              $(this).parent().hide();
+            });
+            $timeout(function() { 
+                 $('.ui.error.message').hide();
+             }, 20000);
+            return false;
+        }
+        
+        alwaysHiredService.getUsersIpAddress().then(function() {
+           $scope.userData = alwaysHiredService.data(); 
+            mainService.addEmailBetalist($scope.betaEmail, $scope.userData.IP, $scope.userData.ISP, $scope.userData.City, $scope.userData.Region, $scope.userData.PostalCode).then(function() {
+                $scope.betaEmail = '';
+            });
         });
     }
 

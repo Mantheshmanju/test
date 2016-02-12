@@ -6,14 +6,28 @@
               <input type="text" placeholder="Search..." ng-model="queryEmail">
               <div class="ui button" ng-click="getUsers()">Search</div>
             </div>
-            <table class="ui olive table">
+            <div class="ui container" style="height: 250px; width: 100%; margin: 15px;">
+                <div id="map" style="height: 100%; width: 100%;"></div>
+            </div>
+            
+            <table class="ui olive selectable celled table">
               <thead>
                 <tr><th>Email</th>
                 <th>Created On</th>
+                <th>IP Address</th>
+                <th>ISP</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>Postal Code</th>
               </tr></thead><tbody>
-                <tr ng-repeat="user in users" ng-if="users != 0">
+                <tr ng-repeat="user in users" ng-if="users != 0" ng-click="expandUser(user.id)">
                   <td>{{user.email}}</td>
                   <td>{{user.createdOn}}</td>
+                  <td>{{user.IP}}</td>
+                  <td>{{user.ISP}}</td>
+                  <td>{{user.City}}</td>
+                  <td>{{user.Region}}</td>
+                  <td>{{user.PostalCode}}</td>    
                 </tr>
                 <tr ng-if="users == 0">
                   <td>No results</td>

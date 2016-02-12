@@ -44,6 +44,23 @@
                         <button  style="width: 100%;" class="ui blue button railway" ng-click="addEmailBetaList()">SUBMIT</button>
                     </div>
                   </div>
+                    
+                    <div class="fields"  style="max-width: 500px; !important">
+                        <div class="sixteen wide field">
+                            <div class="ui positive hidden message">
+                              <i class="close icon"></i>
+                                <div class="header">
+                                Thanks!
+                                </div>
+                              <p> We'll email you soon!</p>
+                            </div>
+                            <div class="ui error hidden message">
+                              <i class="close icon"></i>
+                              <p>{{emailError}}</p>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </form>
 
             </div>
