@@ -133,7 +133,7 @@ angular.module('alwaysHiredApp')
       reader.readAsDataURL(photoFile);
     }
     
-    $scope.submitBasicData = function() {
+    $scope.submitBasicData = function(callbackAction) {
         //check if we exist in db yet
         var doesExist = $scope.doesBiExist;
         
@@ -195,8 +195,8 @@ angular.module('alwaysHiredApp')
                 var validation = basicInfoService.data();
                 //get basic info
                 //if success
-                console.log(validation);
-                getBasicInfo();
+                if(callbackAction == 'continue') window.location.href = '/student-profile/education';
+                else window.location.href = '/dashboard';
             });
         } else {
             //add   
@@ -205,7 +205,8 @@ angular.module('alwaysHiredApp')
                 var rtn = basicInfoService.data();
                 //get basic info
                 //if success
-                getBasicInfo();
+                if(callbackAction == 'continue') window.location.href = '/student-profile/education';
+                else window.location.href = '/dashboard';
             });
         }
     }

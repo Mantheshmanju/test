@@ -49,13 +49,9 @@ angular.module('alwaysHiredApp')
               },
               data: basicInfoData
             }).then(function successCallback(response) {
-                console.log(response);
                 //TODO move this to controller
-                data = response.data;
-                
+                data = response.data;                
                 $('.dimmer').removeClass('active');
-                //TODO: convert this next statement to a green message
-                window.location.href = '/student-profile/education';
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -77,8 +73,6 @@ angular.module('alwaysHiredApp')
             }).then(function successCallback(response) {
                 data = response.data;
                 $('.dimmer').removeClass('active');
-                //TODO: convert this next statement to a green message
-                window.location.href = '/student-profile/education';
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
