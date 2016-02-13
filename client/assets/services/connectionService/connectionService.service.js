@@ -102,7 +102,7 @@ angular.module('alwaysHiredApp')
                 //put this into controller
                 
                 //TODO: convert this next statement to a green message
-                swal("Success!", "Connection Info Updated!", "success");
+                window.location.href= '/dashboard';
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.

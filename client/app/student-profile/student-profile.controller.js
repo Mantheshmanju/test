@@ -195,6 +195,7 @@ angular.module('alwaysHiredApp')
                 var validation = basicInfoService.data();
                 //get basic info
                 //if success
+                console.log(validation);
                 getBasicInfo();
             });
         } else {
@@ -336,7 +337,7 @@ angular.module('alwaysHiredApp')
             
             $scope.educations = currentEducation;
             $scope.educationData = [];
-            
+            getProfileProgress();
         });
         
         return;
@@ -349,12 +350,14 @@ angular.module('alwaysHiredApp')
             var data = educationService.data();
             //TODO: make sure service didn't fail
             getEducationInfo();
+            getProfileProgress();
             $('.ui.modal').modal('hide');
         });
     }
     
     $scope.editEducation = function(education) {
         $scope.currentEducation = education;
+        getProfileProgress();
         //TODO: make edit modal and use that data to send, will also need to populate said modal with correct data.
         $('.ui.modal')
             .modal({
@@ -375,6 +378,7 @@ angular.module('alwaysHiredApp')
             //TODO: check to make sure service didn't fail
             var data = educationService.data();
             getEducationInfo();
+            getProfileProgress();
         });
         
 
@@ -396,17 +400,19 @@ angular.module('alwaysHiredApp')
             var rtn = workHistoryService.data();
             $scope.workHistoryData = [];
             getWorkHistory();
+            getProfileProgress();
         });
     }
     
     $scope.editWorkHistory = function(workHistory) {
         //workHistoryService.editWorkHistory(workHistory);
         $scope.currentWorkHistory = workHistory;
+        
         $('.ui.modal')
             .modal({
                 closeable: false,
                 onApprove : function() {
-                    workHistoryService.editWorkHistory($scope.currentWorkHistory);
+                    workHistoryService.editWorkHistory($scope.currentWorkHistory).then(function() { getProfileProgress(); });
                     return false;
                 }
             })
@@ -419,13 +425,14 @@ angular.module('alwaysHiredApp')
         workHistoryService.editWorkHistory(workHistoryData).then(function() {
             $('.ui.modal').modal('hide');
             getWorkHistory();
+            getProfileProgress();
         });
     }
 
     $scope.removeWorkHistory = function(id) {
         workHistoryService.removeWorkHistory(id).then(function() {
             var rtn = workHistoryService.data();
-            console.log(rtn);
+            getProfileProgress();
             getWorkHistory();
         });
     }
@@ -476,7 +483,6 @@ angular.module('alwaysHiredApp')
     function getWorkHistory() {
         workHistoryService.getWorkHistory().then(function() {
             var data = workHistoryService.data();
-            console.log(data);
             if(data.length != 0) {
                 $scope.workHistories = data;
             } else {
@@ -590,6 +596,22 @@ angular.module('alwaysHiredApp')
                 break;
         }
     }
+    
+    function getProfileProgress() {
+        alwaysHiredService.getProfileProgress().then(function() {
+            var data = alwaysHiredService.data();
+            var progress = Math.ceil(Math.round(data.PercentageCount * 100)/5)*5;
+            if(progress > 100) progress = 100;
+            $scope.progress = progress;
+            $('#profileProgress')
+              .progress({value:progress, total:100})
+            ;
+        });
+    }
+    
+    getProfileProgress();
+    
+
     
     //this can go into rootScope
     $scope.goTo = function (pth) {

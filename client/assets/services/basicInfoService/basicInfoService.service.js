@@ -55,7 +55,7 @@ angular.module('alwaysHiredApp')
                 
                 $('.dimmer').removeClass('active');
                 //TODO: convert this next statement to a green message
-                swal("Success!", "Basic Info Updated!", "success");
+                window.location.href = '/student-profile/education';
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -78,7 +78,7 @@ angular.module('alwaysHiredApp')
                 data = response.data;
                 $('.dimmer').removeClass('active');
                 //TODO: convert this next statement to a green message
-                swal("Success!", "Basic Info Updated!", "success");
+                window.location.href = '/student-profile/education';
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
