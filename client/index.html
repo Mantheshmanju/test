@@ -30,6 +30,9 @@
       <!-- injector:css -->
       <link rel="stylesheet" href="app/activity/activity.css">
       <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/custom-video/custom-video.css">
+      <link rel="stylesheet" href="app/custom-video/main.css">
+      <link rel="stylesheet" href="app/custom-video2/custom-video2.css">
       <link rel="stylesheet" href="app/dashboard/dashboard.css">
       <link rel="stylesheet" href="app/login/login.css">
       <link rel="stylesheet" href="app/main/main.css">
@@ -123,6 +126,14 @@
       <script src="scripts/ngStorage.js"></script>
       <script src="scripts/states.js"></script>
       <script src="scripts/levels.js"></script>
+      <script src="bower_components/videogular/videogular.js"></script>
+      <script src="bower_components/videogular-controls/vg-controls.js"></script>
+      <script src="bower_components/videogular-overlay-play/vg-overlay-play.js"></script>
+      <script src="bower_components/videogular-poster/vg-poster.js"></script>
+      <script src="bower_components/videogular-buffering/vg-buffering.js"></script>
+      <script src="bower_components/videogular-cuepoints/cuepoints.js"></script>
+      <script src="bower_components/videogular-dash/vg-dash.min.js"></script>
+      <script src="bower_components/videogular-analytics/analytics.js"></script>
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMLZPkjUWxubCECstGES7htMVpdqsSTrI">
     </script>
@@ -139,6 +150,7 @@
   <script src="assets/directives/connectionsTab/connectionsTab.directive.js"></script>
   <script src="assets/directives/educationTab/educationTab.directive.js"></script>
   <script src="assets/directives/workHistoryTab/workHistoryTab.directive.js"></script>
+  <script src="assets/directives/app-menu.js"></script>
 
       <!-- include: "type": "js", "files": "scripts/**/*.js" -->
     <!-- endbuild -->
@@ -150,15 +162,19 @@
       </script>
       <!-- injector:js -->
       <script src="components/util/util.module.js"></script>
-      <script src="app/register/register.controller.js"></script>
+      <script src="app/main/main.controller.js"></script>
       <script src="app/app.constant.js"></script>
+      <script src="app/custom-video/custom-video.controller.js"></script>
+      <script src="app/custom-video/custom-video.js"></script>
+      <script src="app/custom-video2/custom-video2.controller.js"></script>
+      <script src="app/custom-video2/custom-video2.js"></script>
       <script src="app/dashboard/dashboard.controller.js"></script>
       <script src="app/dashboard/dashboard.js"></script>
       <script src="app/login/login.controller.js"></script>
       <script src="app/login/login.js"></script>
-      <script src="app/main/main.controller.js"></script>
-      <script src="app/main/main.js"></script>
       <script src="app/activity/activity.js"></script>
+      <script src="app/main/main.js"></script>
+      <script src="app/register/register.controller.js"></script>
       <script src="app/register/register.js"></script>
       <script src="app/student-profile/student-profile.controller.js"></script>
       <script src="app/student-profile/student-profile.js"></script>
