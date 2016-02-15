@@ -1,0 +1,142 @@
+<navbar></navbar>
+<div style="width: 95%; margin-left: auto; margin-right: auto; min-height: 100%; padding-bottom: 60px;">
+    <div class="ui main container">
+        <div class="ui grid" style="min-height: 50px !important;">
+            <div class="sixteen wide column" style="background-color: grey">
+                <p class="header" style="font-size: 1.3em; color: white">Introduction To Sales</p>
+                
+            </div>
+        </div>
+        <div class="ui two column stackable grid">
+          <div class="column" style="height: auto">
+            <div class="ui equal height grid" style="min-height: 0px !important; height: auto !important">
+                <div class="row" ng-repeat="OV in OVs">
+                    <div class="sixteen wide column">
+                        <div class="ui top attached label">{{OV.title}}</div>
+                    </div>
+
+                    <div class="sixteen wide left aligned column" style="margin-top: 40px">
+                      <div class="ui items">
+                        <div class="item" ng-repeat="lecture in OV.lectures">
+                          <div class="content">
+                              <div class="ui grid" style="min-height: 0px !important">
+                                <div class="row">
+                                    <div class="sixteen wide column">
+                                        <div class="description">
+                                        <p>Lecture : {{lecture.name}}&nbsp;&nbsp;<i class="ui green checkmark icon" ng-if="lecture.completed"></i></p>
+                                      </div>
+                                      <a class="header"><i class="video play icon"></i>&nbsp;The Course Overview</a>
+                                      <div class="meta">
+                                        <span>{{lecture.timeRemaining}} minutes remaining</span>
+                                      </div>
+                                      <div class="description">
+                                        <p></p>
+                                      </div>
+                                      <div class="extra">
+                                        Additional Details
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                              
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+          <div class="column">
+              <div class="ui equal height grid" style="min-height: 0px !important; height: auto !important;">
+                  <div class="row"  style="margin-top: 14px">
+                    <div class="ui comments" style="padding: 15px;">
+                      <div class="ui top attached label">Comments</div>
+                      <div class="comment">
+                        <a class="avatar">
+                          <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
+                        </a>
+                        <div class="content">
+                          <a class="author">Matt</a>
+                          <div class="metadata">
+                            <span class="date">Today at 5:42PM</span>
+                          </div>
+                          <div class="text">
+                            How artistic!
+                          </div>
+                          <div class="actions">
+                            <a class="reply">Reply</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="comment">
+                        <a class="avatar">
+                          <img src="http://semantic-ui.com/images/avatar/small/elliot.jpg">
+                        </a>
+                        <div class="content">
+                          <a class="author">Elliot Fu</a>
+                          <div class="metadata">
+                            <span class="date">Yesterday at 12:30AM</span>
+                          </div>
+                          <div class="text">
+                            <p>This has been very useful for my research. Thanks as well!</p>
+                          </div>
+                          <div class="actions">
+                            <a class="reply">Reply</a>
+                          </div>
+                        </div>
+                        <div class="comments">
+                          <div class="comment">
+                            <a class="avatar">
+                              <img src="http://semantic-ui.com/images/avatar/small/jenny.jpg">
+                            </a>
+                            <div class="content">
+                              <a class="author">Jenny Hess</a>
+                              <div class="metadata">
+                                <span class="date">Just now</span>
+                              </div>
+                              <div class="text">
+                                Elliot you are always so right :)
+                              </div>
+                              <div class="actions">
+                                <a class="reply">Reply</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="comment">
+                        <a class="avatar">
+                          <img src="http://semantic-ui.com/images/avatar/small/joe.jpg">
+                        </a>
+                        <div class="content">
+                          <a class="author">Joe Henderson</a>
+                          <div class="metadata">
+                            <span class="date">5 days ago</span>
+                          </div>
+                          <div class="text">
+                            Dude, this is awesome. Thanks so much
+                          </div>
+                          <div class="actions">
+                            <a class="reply">Reply</a>
+                          </div>
+                        </div>
+                      </div>
+                      <form class="ui reply form">
+                        <div class="field">
+                          <textarea></textarea>
+                        </div>
+                        <div class="ui blue labeled submit icon button">
+                          <i class="icon edit"></i> Add Reply
+                        </div>
+                      </form>
+                    </div>  
+                  </div>
+                
+              </div>
+          </div>
+        </div>              
+    </div>
+</div>
+
+
+<footer></footer>
