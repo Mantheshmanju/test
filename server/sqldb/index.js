@@ -14,6 +14,7 @@ var db = {
 };
 
 // Insert models below
+db.Message = db.sequelize.import('../api/message/message.model');
 db.Thing = db.sequelize.import('../api/thing/thing.model');
 
 module.exports = db;

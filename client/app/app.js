@@ -18,6 +18,7 @@ var app = angular.module('alwaysHiredApp', [
   'ui.router',
   'backand',
   'ngStorage',
+  'ngCsv',
   '720kb.datepicker',
   'angular-progress-arc'
 ]);

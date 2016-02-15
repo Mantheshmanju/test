@@ -16,6 +16,10 @@ class MainController {
         window.location.href = "/register";
     }
     
+    $scope.getArray = function() {
+        return [{a: 1,b: 1}, {a: 2,b: 3} ,{a: 4,b: 5}, {a: 6,b: 8}, {a: 9, b: 9}];   
+    }
+    
     $scope.logout = function() {
         delete $localStorage.userToken;
         delete $localStorage.userId;
