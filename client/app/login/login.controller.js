@@ -57,7 +57,7 @@ angular.module('alwaysHiredApp')
                         //redirect user to dashboard
                         
                         if(userRole == 'S')
-                            window.location.href = "/dashboard";
+                            window.location.href = "/courses";
                         else
                             window.location.href = "/activity";
                         setTimeout(function() {

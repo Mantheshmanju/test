@@ -17,6 +17,7 @@
       <!-- endbower -->
       <link rel="stylesheet" href="scripts/semantic-ui/semantic.css">
       <link rel="stylesheet" href="assets/CSS/minimal-slide.css">
+      <link rel="stylesheet" href="components/navbar-beta/navbar.css">
       <link rel="stylesheet" href="bower_components/semantic/dist/semantic.css" />
       <link rel="stylesheet" href="assets/CSS/semantic-custom.css">
       <link rel="stylesheet" href="scripts/sweetalert/sweetalert.css">
@@ -31,6 +32,7 @@
       <link rel="stylesheet" href="app/activity/activity.css">
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/course-overview/course-overview.css">
+      <link rel="stylesheet" href="app/courses/courses.css">
       <link rel="stylesheet" href="app/csv-test/csv-test.css">
       <link rel="stylesheet" href="app/custom-video-test/custom-video-test.css">
       <link rel="stylesheet" href="app/dashboard/dashboard.css">
@@ -39,6 +41,7 @@
       <link rel="stylesheet" href="app/register/register.css">
       <link rel="stylesheet" href="app/student-profile/student-profile.css">
       <link rel="stylesheet" href="components/footer/footer.css">
+      <link rel="stylesheet" href="components/navbar-beta/navbar.css">
       <!-- endinjector -->
       
     <!-- endbuild -->
@@ -75,15 +78,40 @@
       </style>
   </head>
   <body ng-app="alwaysHiredApp">
+<!--
       <div class="ui dimmer">
          <div class="ui text loader">Loading...</div>
       </div>
+-->
     <!--[if lt IE 7]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
+      <navbarbeta></navbarbeta>
+      
+      <div class="ui bottom attached segment pushable" style="height: 100% !important; min-height: 100%;">
+          <div class="ui left demo vertical sidebar labeled icon menu" style="top: 15px;">
+              <a class="item">
+                <i class="home icon"></i>
+                Home
+              </a>
+              <a class="item">
+                <i class="block layout icon"></i>
+                Topics
+              </a>
+              <a class="item">
+                <i class="smile icon"></i>
+                FriendsFriendsFriendsFriendsFriendsFriendsFriends
+              </a>
+            </div>
+          
+          <div ui-view="" class="pusher" style="height: 100% !important; min-height: 100%;"></div>
+      
+      </div>
+      
+      <footer></footer>
     <!-- Add your site or application content here -->
-    <div ui-view="" style="height: 100% !important; min-height: 100%;"></div>
+    
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -168,6 +196,8 @@
       <script src="app/app.constant.js"></script>
       <script src="app/course-overview/course-overview.controller.js"></script>
       <script src="app/course-overview/course-overview.js"></script>
+      <script src="app/courses/courses.controller.js"></script>
+      <script src="app/courses/courses.js"></script>
       <script src="app/csv-test/csv-test.controller.js"></script>
       <script src="app/csv-test/csv-test.js"></script>
       <script src="app/custom-video-test/custom-video-test.controller.js"></script>
@@ -183,6 +213,8 @@
       <script src="app/student-profile/student-profile.controller.js"></script>
       <script src="app/student-profile/student-profile.js"></script>
       <script src="components/footer/footer.directive.js"></script>
+      <script src="components/navbar-beta/navbar.controller.js"></script>
+      <script src="components/navbar-beta/navbar.directive.js"></script>
       <script src="components/navbar/navbar.controller.js"></script>
       <script src="components/navbar/navbar.directive.js"></script>
       <script src="components/socket/socket.service.js"></script>
