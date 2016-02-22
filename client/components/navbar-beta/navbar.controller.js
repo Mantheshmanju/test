@@ -36,5 +36,16 @@ angular.module('alwaysHiredApp')
         ;
      });
     
-      $('.ui.dropdown').dropdown();
+    $('.browse.item')
+    .popup({
+        inline   : true,
+        hoverable: false,
+        position : 'bottom right',
+        delay: {
+          show: 300,
+          hide: 800
+        }
+    });
+    
+     $('.ui.dropdown').dropdown();
 });
